@@ -276,7 +276,7 @@
     const db = getFirestore(app);
 
     // ------------------------- GLOBAL STATE -------------------------
-    let currentUser = null;
+    let currentUser = null;        // will have { id, username, role, name, teacherId (if teacher), studentId (if student) }
     let currentTeacherView = 'input';
     let schoolData = { subjects: [], classes: [] };
     let teachers = [];
@@ -330,10 +330,19 @@
     function setupRealtimeListeners() {
         onSnapshot(collection(db, "teachers"), (snapshot) => {
             teachers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            // If current user is teacher, update teacherId mapping
+            if (currentUser && currentUser.role === 'teacher') {
+                const teacherRecord = teachers.find(t => t.username === currentUser.username);
+                if (teacherRecord) currentUser.teacherId = teacherRecord.id;
+            }
             rerenderCurrentView();
         });
         onSnapshot(collection(db, "students"), (snapshot) => {
             students = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            if (currentUser && currentUser.role === 'student') {
+                const studentRecord = students.find(s => s.username === currentUser.username);
+                if (studentRecord) currentUser.studentId = studentRecord.id;
+            }
             rerenderCurrentView();
         });
         onSnapshot(collection(db, "results"), (snapshot) => {
@@ -350,13 +359,24 @@
         });
         onSnapshot(collection(db, "users"), (snapshot) => {
             users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            console.log("✅ Users loaded from Firestore:", users.map(u => ({ username: u.username, role: u.role })));
+            console.log("✅ Users loaded:", users.map(u => ({ username: u.username, role: u.role })));
             const saved = localStorage.getItem('portal_currentUser');
             if (saved && !currentUser) {
                 const parsed = JSON.parse(saved);
                 const exists = users.find(u => u.id === parsed.id);
-                if (exists) currentUser = exists;
-                else localStorage.removeItem('portal_currentUser');
+                if (exists) {
+                    currentUser = exists;
+                    // If teacher, also fetch teacherId
+                    if (currentUser.role === 'teacher') {
+                        const teacherRecord = teachers.find(t => t.username === currentUser.username);
+                        if (teacherRecord) currentUser.teacherId = teacherRecord.id;
+                    } else if (currentUser.role === 'student') {
+                        const studentRecord = students.find(s => s.username === currentUser.username);
+                        if (studentRecord) currentUser.studentId = studentRecord.id;
+                    }
+                } else {
+                    localStorage.removeItem('portal_currentUser');
+                }
             }
             rerenderCurrentView();
         });
@@ -393,9 +413,8 @@
         }
     }
 
-    // ------------------------- CRUD HELPERS (fixed: trim inputs) -------------------------
+    // ------------------------- CRUD HELPERS -------------------------
     async function addTeacher(teacherData) {
-        // Trim all string fields
         teacherData.name = teacherData.name.trim();
         teacherData.username = teacherData.username.trim();
         teacherData.password = teacherData.password.trim();
@@ -403,7 +422,6 @@
         if (teacherData.phone) teacherData.phone = teacherData.phone.trim();
         
         const teacherRef = await addDoc(collection(db, "teachers"), teacherData);
-        // Create corresponding user
         await addDoc(collection(db, "users"), {
             username: teacherData.username,
             password: teacherData.password,
@@ -413,7 +431,7 @@
             phone: teacherData.phone || "",
             teacherId: teacherRef.id
         });
-        console.log(`Teacher added: ${teacherData.username} / ${teacherData.password}`);
+        console.log(`Teacher added: ${teacherData.username}`);
         return teacherRef;
     }
 
@@ -447,7 +465,7 @@
             admissionNo: studentData.admissionNo,
             studentId: studentRef.id
         });
-        console.log(`Student added: ${studentData.username} / ${studentData.password}`);
+        console.log(`Student added: ${studentData.username}`);
         return studentRef;
     }
 
@@ -480,7 +498,7 @@
     async function changeAdminPassword(adminId, newPassword) { await updateDoc(doc(db, "users", adminId), { password: newPassword }); }
     async function deleteUser(userId) { await deleteDoc(doc(db, "users", userId)); }
 
-    // ------------------------- LOGIN (with trimming) -------------------------
+    // ------------------------- LOGIN (with teacherId/studentId lookup) -------------------------
     function renderLogin() {
         const content = `
             <div class="login-box">
@@ -514,11 +532,23 @@
         const role = document.getElementById('loginRole').value;
         
         console.log(`Attempting login: ${username} / ${password} as ${role}`);
-        console.log("Available users:", users.map(u => ({ username: u.username, role: u.role, password: u.password })));
-        
         const user = users.find(u => u.username === username && u.password === password && u.role === role);
         if (user) {
             currentUser = { id: user.id, username: user.username, role: user.role, name: user.name };
+            // If teacher, fetch the teacher document ID
+            if (currentUser.role === 'teacher') {
+                const teacherRecord = teachers.find(t => t.username === currentUser.username);
+                if (teacherRecord) {
+                    currentUser.teacherId = teacherRecord.id;
+                } else {
+                    console.warn("Teacher record not found for username:", username);
+                }
+            } else if (currentUser.role === 'student') {
+                const studentRecord = students.find(s => s.username === currentUser.username);
+                if (studentRecord) {
+                    currentUser.studentId = studentRecord.id;
+                }
+            }
             localStorage.setItem('portal_currentUser', JSON.stringify(currentUser));
             rerenderCurrentView();
         } else {
@@ -532,8 +562,13 @@
         renderLogin(); 
     };
 
-    // ------------------------- TEACHER DASHBOARD (same as before, functional) -------------------------
+    // ------------------------- TEACHER DASHBOARD (FIXED: uses teacherId) -------------------------
     function renderTeacherDashboard() {
+        // Ensure we have the teacherId
+        if (!currentUser.teacherId) {
+            const teacherRecord = teachers.find(t => t.username === currentUser.username);
+            if (teacherRecord) currentUser.teacherId = teacherRecord.id;
+        }
         const content = `
             <div class="nav">
                 <button onclick="window.showTeacherSection('input')">📝 Input Scores</button>
@@ -555,8 +590,20 @@
         if (!container) return;
 
         if (section === 'input') {
-            const myAssignments = teacherSubjects.filter(ts => ts.teacherId === currentUser.id);
+            // Use currentUser.teacherId to filter assignments
+            const myAssignments = teacherSubjects.filter(ts => ts.teacherId === currentUser.teacherId);
             const activeSession = sessions.find(s => s.isActive) || { academicYear: '2024/2025', term: 'First Term' };
+            
+            if (myAssignments.length === 0) {
+                container.innerHTML = `
+                    <div class="card">
+                        <h3>📝 Enter Student Scores</h3>
+                        <div class="alert alert-warning">No subjects assigned to you yet. Please contact admin to assign subjects.</div>
+                    </div>
+                `;
+                return;
+            }
+            
             container.innerHTML = `
                 <div class="card">
                     <h3>📝 Enter Student Scores</h3>
@@ -597,7 +644,7 @@
             `;
         } 
         else if (section === 'myResults') {
-            const myResults = results.filter(r => r.teacherId === currentUser.id);
+            const myResults = results.filter(r => r.teacherId === currentUser.teacherId);
             container.innerHTML = `
                 <div class="card">
                     <h3>📋 My Submitted Results</h3>
@@ -624,14 +671,14 @@
             `;
         }
         else if (section === 'analytics') {
-            const myResults = results.filter(r => r.teacherId === currentUser.id && r.status === 'approved');
+            const myResults = results.filter(r => r.teacherId === currentUser.teacherId && r.status === 'approved');
             const avg = myResults.length ? (myResults.reduce((a,b)=>a+b.total,0)/myResults.length).toFixed(1) : 0;
             container.innerHTML = `
                 <div class="card">
                     <h3>📊 My Performance Analytics</h3>
                     <p>Approved results: ${myResults.length}</p>
                     <p>Average score: ${avg}%</p>
-                    <p>Subjects taught: ${teacherSubjects.filter(ts=>ts.teacherId===currentUser.id).length}</p>
+                    <p>Subjects taught: ${teacherSubjects.filter(ts=>ts.teacherId===currentUser.teacherId).length}</p>
                 </div>
             `;
         }
@@ -697,7 +744,7 @@
             total: total,
             grade: grade,
             status: 'pending',
-            teacherId: currentUser.id,
+            teacherId: currentUser.teacherId,   // use teacherId, not user id
             teacher: currentUser.name || currentUser.username,
             timestamp: new Date().toISOString()
         };
@@ -715,7 +762,7 @@
         document.getElementById('studentSelect').value = '';
     };
 
-    // ------------------------- ADMIN DASHBOARD (full functionality) -------------------------
+    // ------------------------- ADMIN DASHBOARD (unchanged, but ensure teacher assignment uses teacher ID) -------------------------
     function renderAdminDashboard() {
         const pendingResults = results.filter(r => r.status === 'pending');
         const feeDefaulters = students.filter(s => s.feeStatus !== 'paid');
@@ -783,12 +830,12 @@
         }
         else if (section === 'resultApproval') {
             const pending = results.filter(r => r.status === 'pending');
-            container.innerHTML = `<div class="card"><h3>✅ Pending Results Approval (${pending.length})</h3>${pending.length === 0 ? '<p>No pending results to approve.</p>' : `<table><thead><tr><th>Student</th><th>Subject</th><th>Class</th><th>CA</th><th>Exam</th><th>Total</th><th>Grade</th><th>Teacher</th><th>Actions</th></tr></thead><tbody>${pending.map(r => `<tr><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}</strong></td><td><strong>${r.grade}</strong></td><td>${r.teacher}</td><td><button onclick="window.approveResult('${r.id}')" style="background:#28a745">✅ Approve</button> <button onclick="window.rejectResult('${r.id}')" style="background:#dc3545">❌ Reject</button></td></tr>`).join('')}</tbody></tr>`}</div>`;
+            container.innerHTML = `<div class="card"><h3>✅ Pending Results Approval (${pending.length})</h3>${pending.length === 0 ? '<p>No pending results to approve.</p>' : `<tr><thead><tr><th>Student</th><th>Subject</th><th>Class</th><th>CA</th><th>Exam</th><th>Total</th><th>Grade</th><th>Teacher</th><th>Actions</th></tr></thead><tbody>${pending.map(r => `<tr><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}</strong></td><td><strong>${r.grade}</strong></td><td>${r.teacher}</td><td><button onclick="window.approveResult('${r.id}')" style="background:#28a745">✅ Approve</button> <button onclick="window.rejectResult('${r.id}')" style="background:#dc3545">❌ Reject</button></td></tr>`).join('')}</tbody></table>`}</div>`;
         }
         else if (section === 'teachers') {
             container.innerHTML = `
                 <div class="card"><h3>➕ Add Teacher</h3><div class="grid-3"><input id="tName" placeholder="Name"><input id="tUser" placeholder="Username"><input id="tPass" type="password" placeholder="Password"><input id="tEmail" placeholder="Email"><input id="tPhone" placeholder="Phone"></div><button onclick="window.addTeacher()">Add</button></div>
-                <div class="card"><h3>All Teachers</h3><table><thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Action</th></tr></thead><tbody>${teachers.map(t => `<tr><td>${t.name}</td><td>${t.username}</td><td>${t.email || '-'}</td><td><button onclick="window.deleteTeacher('${t.id}')">Delete</button></td></tr>`).join('')}</tbody></table></div>
+                <div class="card"><h3>All Teachers</h3><table><thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Action</th></tr></thead><tbody>${teachers.map(t => `<tr><td>${t.name}</td><td>${t.username}</td><td>${t.email || '-'}</td><td><button onclick="window.deleteTeacher('${t.id}')">Delete</button></td></tr>`).join('')}</tbody></tr></div>
             `;
         }
         else if (section === 'students') {
@@ -802,7 +849,7 @@
             container.innerHTML = `<div class="card"><h3>➕ Add New Subject</h3><div class="grid-2"><input id="subjName" placeholder="Subject Name"><input id="subjCode" placeholder="Code"><select id="subjCat"><option>Core</option><option>Science</option><option>Commercial</option><option>Arts</option><option>Elective</option></select></div><button onclick="window.addSubject()">Add</button></div><div class="card"><h3>All Subjects</h3><table><thead><tr><th>Code</th><th>Name</th><th>Category</th><th>Action</th></tr></thead><tbody>${schoolData.subjects.map(s => `<tr><td>${s.code}</td><td>${s.name}</td><td>${s.category}</td><td><button onclick="window.deleteSubject('${s.id}')">Delete</button></td></tr>`).join('')}</tbody></table></div>`;
         }
         else if (section === 'teacherSubjects') {
-            container.innerHTML = `<div class="card"><h3>Assign Subject</h3><div class="grid-3"><select id="asTeacher">${teachers.map(t => `<option value="${t.id}">${t.name}</option>`)}</select><select id="asSubject">${schoolData.subjects.map(s => `<option value="${s.id}">${s.name}</option>`)}</select><select id="asClass">${schoolData.classes.flatMap(c => c.arms.map(arm => `<option value="${c.name} ${arm}">${c.name} ${arm}</option>`)).join('')}</select></div><button onclick="window.assignSubject()">Assign</button></div><div class="card"><h3>Assignments</h3><td><thead><tr><th>Teacher</th><th>Subject</th><th>Class</th><th>Action</th></tr></thead><tbody>${teacherSubjects.map(ts => { const t = teachers.find(t => t.id === ts.teacherId); const s = schoolData.subjects.find(s => s.id === ts.subjectId); return `<tr><td>${t?.name}</td><td>${s?.name}</td><td>${ts.class}</td><td><button onclick="window.removeTeacherSubject('${ts.id}')">Remove</button></td></tr>`; }).join('')}</tbody></table></div>`;
+            container.innerHTML = `<div class="card"><h3>Assign Subject</h3><div class="grid-3"><select id="asTeacher">${teachers.map(t => `<option value="${t.id}">${t.name}</option>`)}</select><select id="asSubject">${schoolData.subjects.map(s => `<option value="${s.id}">${s.name}</option>`)}</select><select id="asClass">${schoolData.classes.flatMap(c => c.arms.map(arm => `<option value="${c.name} ${arm}">${c.name} ${arm}</option>`)).join('')}</select></div><button onclick="window.assignSubject()">Assign</button></div><div class="card"><h3>Assignments</h3><table><thead><tr><th>Teacher</th><th>Subject</th><th>Class</th><th>Action</th></tr></thead><tbody>${teacherSubjects.map(ts => { const t = teachers.find(t => t.id === ts.teacherId); const s = schoolData.subjects.find(s => s.id === ts.subjectId); return `<tr><td>${t?.name}</td><td>${s?.name}</td><td>${ts.class}</td><td><button onclick="window.removeTeacherSubject('${ts.id}')">Remove</button></td></tr>`; }).join('')}</tbody></table></div>`;
         }
         else if (section === 'classes') {
             container.innerHTML = `<div class="card"><h3>Add Class</h3><div><input id="className" placeholder="Class Name"><input id="classArms" placeholder="Arms (comma)"></div><button onclick="window.addClass()">Add</button></div><div class="card"><h3>Classes</h3>${schoolData.classes.map(c => `<div><h4>${c.name}</h4><p>Arms: ${c.arms.join(', ')}</p><button onclick="window.deleteClass('${c.id}')">Delete Class</button> <button onclick="window.addArm('${c.id}')">Add Arm</button></div>`).join('')}</div>`;
@@ -811,17 +858,17 @@
             container.innerHTML = `<div class="card"><h3>Set Active Session</h3><div class="grid-2"><input id="acadYear" placeholder="2024/2025"><select id="termSel"><option>First Term</option><option>Second Term</option><option>Third Term</option></select></div><button onclick="window.setSession()">Activate</button></div><div class="card"><h3>Sessions</h3><table><thead><tr><th>Year</th><th>Term</th><th>Status</th></tr></thead><tbody>${sessions.map(s => `<tr><td>${s.academicYear}</td><td>${s.term}</td><td>${s.isActive ? 'Active' : 'Inactive'}</td></tr>`).join('')}</tbody></table></div>`;
         }
         else if (section === 'allResults') {
-            container.innerHTML = `<div class="card"><h3>All Results</h3><input id="searchRes" placeholder="Search..." onkeyup="window.searchResults()"><div id="resTable"><tr><thead><tr><th>Student</th><th>Admission</th><th>Subject</th><th>Class</th><th>Term</th><th>CA</th><th>Exam</th><th>Total</th><th>Grade</th><th>Status</th><th>Teacher</th></tr></thead><tbody>${results.map(r => `<tr><td>${r.studentName}</td><td>${r.admissionNo || '-'}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.term}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}</strong></td><td><strong>${r.grade}</strong></td><td class="${r.status === 'approved' ? 'status-approved' : r.status === 'pending' ? 'status-pending' : 'status-rejected'}">${r.status}</td><td>${r.teacher}</td></tr>`).join('')}</tbody></table></div></div>`;
+            container.innerHTML = `<div class="card"><h3>All Results</h3><input id="searchRes" placeholder="Search..." onkeyup="window.searchResults()"><div id="resTable"><table><thead><tr><th>Student</th><th>Admission</th><th>Subject</th><th>Class</th><th>Term</th><th>CA</th><th>Exam</th><th>Total</th><th>Grade</th><th>Status</th><th>Teacher</th></tr></thead><tbody>${results.map(r => `<tr><td>${r.studentName}</td><td>${r.admissionNo || '-'}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.term}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}</strong></td><td><strong>${r.grade}</strong></td><td class="${r.status === 'approved' ? 'status-approved' : r.status === 'pending' ? 'status-pending' : 'status-rejected'}">${r.status}</td><td>${r.teacher}</td></tr>`).join('')}</tbody></table></div></div>`;
         }
         else if (section === 'reports') {
             const approved = results.filter(r => r.status === 'approved');
             const classAvg = {};
             students.forEach(s => { const stuRes = approved.filter(r => r.studentId === s.id); const avg = stuRes.length ? stuRes.reduce((a,b)=>a+b.total,0)/stuRes.length : 0; if(!classAvg[s.class]) classAvg[s.class] = { sum:0, count:0 }; classAvg[s.class].sum += avg; classAvg[s.class].count++; });
-            container.innerHTML = `<div class="card"><h3>Class Performance</h3></table><thead><tr><th>Class</th><th>Average</th><th>Students</th><th>Performance</th></tr></thead><tbody>${Object.entries(classAvg).map(([cn,st]) => { const avg = st.sum/st.count; let perf = avg >= 70 ? 'Excellent' : avg >= 50 ? 'Good' : 'Fair'; return `<tr><td>${cn}</td><td>${avg.toFixed(1)}%</td><td>${st.count}</td><td>${perf}</td></tr>`; }).join('')}</tbody></table></div><div class="card"><h3>Fee Defaulters</h3><table><thead><tr><th>Name</th><th>Admission</th><th>Class</th><th>Contact</th><th>Status</th></tr></thead><tbody>${students.filter(s => s.feeStatus !== 'paid').map(s => `<tr><td>${s.name}</td><td>${s.admissionNo}</td><td>${s.class}</td><td>${s.parentEmail}</td><td class="fee-unpaid">Unpaid</td></tr>`).join('')}</tbody></table></div>`;
+            container.innerHTML = `<div class="card"><h3>Class Performance</h3><table><thead><tr><th>Class</th><th>Average</th><th>Students</th><th>Performance</th></tr></thead><tbody>${Object.entries(classAvg).map(([cn,st]) => { const avg = st.sum/st.count; let perf = avg >= 70 ? 'Excellent' : avg >= 50 ? 'Good' : 'Fair'; return `<tr><td>${cn}</td><td>${avg.toFixed(1)}%</td><td>${st.count}</td><td>${perf}</td></tr>`; }).join('')}</tbody></table></div><div class="card"><h3>Fee Defaulters</h3><td><thead><tr><th>Name</th><th>Admission</th><th>Class</th><th>Contact</th><th>Status</th></tr></thead><tbody>${students.filter(s => s.feeStatus !== 'paid').map(s => `<tr><td>${s.name}</td><td>${s.admissionNo}</td><td>${s.class}</td><td>${s.parentEmail}</td><td class="fee-unpaid">Unpaid</td></tr>`).join('')}</tbody></table></div>`;
         }
     };
 
-    // Admin action handlers
+    // Admin action handlers (unchanged)
     window.addTeacher = async () => { 
         const name = document.getElementById('tName')?.value.trim();
         const user = document.getElementById('tUser')?.value.trim();
@@ -858,7 +905,7 @@
     window.assignSubject = async () => { const tid = document.getElementById('asTeacher')?.value, sid = document.getElementById('asSubject')?.value, cls = document.getElementById('asClass')?.value; if(tid && sid && cls) { await assignSubjectToTeacher(tid, sid, cls); showAdminSection('teacherSubjects'); } };
     window.removeTeacherSubject = async (id) => { await removeTeacherSubject(id); showAdminSection('teacherSubjects'); };
     window.setSession = async () => { const year = document.getElementById('acadYear')?.value.trim(), term = document.getElementById('termSel')?.value; if(year) await setActiveSession(year, term); showAdminSection('sessions'); };
-    window.searchResults = () => { const term = document.getElementById('searchRes')?.value.toLowerCase(); if(term && document.getElementById('resTable')) { const filtered = results.filter(r => r.studentName.toLowerCase().includes(term) || r.subject.toLowerCase().includes(term)); document.getElementById('resTable').innerHTML = `<table><thead><tr><th>Student</th><th>Admission</th><th>Subject</th><th>Class</th><th>Term</th><th>CA</th><th>Exam</th><th>Total</th><th>Grade</th><th>Status</th><th>Teacher</th></tr></thead><tbody>${filtered.map(r => `<tr><td>${r.studentName}</td><td>${r.admissionNo || '-'}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.term}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}</strong></td><td><strong>${r.grade}</strong></td><td class="${r.status === 'approved' ? 'status-approved' : r.status === 'pending' ? 'status-pending' : 'status-rejected'}">${r.status}</td><td>${r.teacher}</td></tr>`).join('')}</tbody></table>`; } };
+    window.searchResults = () => { const term = document.getElementById('searchRes')?.value.toLowerCase(); if(term && document.getElementById('resTable')) { const filtered = results.filter(r => r.studentName.toLowerCase().includes(term) || r.subject.toLowerCase().includes(term)); document.getElementById('resTable').innerHTML = `<tr><thead><tr><th>Student</th><th>Admission</th><th>Subject</th><th>Class</th><th>Term</th><th>CA</th><th>Exam</th><th>Total</th><th>Grade</th><th>Status</th><th>Teacher</th></tr></thead><tbody>${filtered.map(r => `<tr><td>${r.studentName}</td><td>${r.admissionNo || '-'}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.term}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}</strong></td><td><strong>${r.grade}</strong></td><td class="${r.status === 'approved' ? 'status-approved' : r.status === 'pending' ? 'status-pending' : 'status-rejected'}">${r.status}</td><td>${r.teacher}</td></tr>`).join('')}</tbody></table>`; } };
     window.deleteUserAccount = async (userId) => { if(confirm('Delete this user? This action is permanent.')) { const userToDelete = users.find(u => u.id === userId); if(userToDelete && userToDelete.role === 'teacher') { const teacher = teachers.find(t => t.username === userToDelete.username); if(teacher) await deleteTeacher(teacher.id); } else if(userToDelete && userToDelete.role === 'student') { const student = students.find(s => s.username === userToDelete.username); if(student) await deleteStudent(student.id); } else { await deleteDoc(doc(db, "users", userId)); } showAdminSection('users'); } };
     window.showChangePassword = () => { document.getElementById('adminContent').innerHTML = `<div class="card"><h3>🔐 Change Admin Password</h3><div id="pwdAlert"></div><div class="form-group"><label>Current Password</label><input type="password" id="currentPassword" placeholder="Enter current password"></div><div class="form-group"><label>New Password</label><input type="password" id="newPassword" placeholder="Enter new password (min 4 characters)"></div><div class="form-group"><label>Confirm New Password</label><input type="password" id="confirmPassword" placeholder="Confirm new password"></div><button onclick="window.updateAdminPassword()">Update Password</button></div>`; };
     window.updateAdminPassword = async () => { const old = document.getElementById('currentPassword')?.value.trim(), newp = document.getElementById('newPassword')?.value.trim(), conf = document.getElementById('confirmPassword')?.value.trim(); if(!currentUser || currentUser.role !== 'admin') { showAlert('pwdAlert', 'Not authorized', 'error'); return; } const adminUser = users.find(u => u.id === currentUser.id); if(adminUser.password !== old) { showAlert('pwdAlert', 'Current password is incorrect.', 'error'); return; } if(newp !== conf || newp.length < 4) { showAlert('pwdAlert', 'Passwords do not match or too short.', 'error'); return; } await changeAdminPassword(currentUser.id, newp); showAlert('pwdAlert', 'Password changed successfully! Please login again.', 'success'); setTimeout(() => logout(), 1500); };
@@ -878,7 +925,7 @@
             <div class="nav"><button onclick="window.showStudentSection('results')">My Results</button><button class="logout-btn" onclick="window.logout()">Logout</button></div>
             <div class="main-content" id="studentContent">
                 <div class="card"><h3>Welcome ${student?.name}</h3></div>
-                <div class="card"><h3>My Approved Results</h3>${myResults.length === 0 ? '<p>No approved results yet.</p>' : `</table><thead><tr><th>Subject</th><th>Class</th><th>Term</th><th>CA</th><th>Exam</th><th>Total</th><th>Grade</th></tr></thead><tbody>${myResults.map(r => `<tr><td>${r.subject}</td><td>${r.class}</td><td>${r.term}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td></tr>`).join('')}</tbody></table>`}</div>
+                <div class="card"><h3>My Approved Results</h3>${myResults.length === 0 ? '<p>No approved results yet.</p>' : `<table><thead><tr><th>Subject</th><th>Class</th><th>Term</th><th>CA</th><th>Exam</th><th>Total</th><th>Grade</th></tr></thead><tbody>${myResults.map(r => `<tr><td>${r.subject}</td><td>${r.class}</td><td>${r.term}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td></tr>`).join('')}</tbody></table>`}</div>
             </div>
         `;
     }
@@ -893,6 +940,10 @@
     if (currentUser && !users.find(u => u.id === currentUser.id)) {
         currentUser = null;
         localStorage.removeItem('portal_currentUser');
+    } else if (currentUser && currentUser.role === 'teacher') {
+        // Ensure teacherId is set after data loads
+        const teacherRecord = teachers.find(t => t.username === currentUser.username);
+        if (teacherRecord) currentUser.teacherId = teacherRecord.id;
     }
     rerenderCurrentView();
     updateHeaderLogo();
