@@ -17,12 +17,14 @@
             padding: 10px;
         }
         .container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         .header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
@@ -90,31 +92,20 @@
         .nav button:hover {
             background: #2a5298;
         }
-        .nav .logout-btn {
-            background: #dc3545;
-        }
-        .student-nav, .teacher-nav {
-            background: #f8f9fa;
-            padding: 10px;
-            border-bottom: 2px solid #e0e0e0;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .student-nav .nav-buttons, .teacher-nav .nav-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .student-nav .logout-btn, .teacher-nav .logout-btn {
-            background: #dc3545;
-            margin-left: auto;
-        }
         .main-content {
-            padding: 15px;
-            min-height: 400px;
+            padding: 20px;
+            flex: 1;
+        }
+        .bottom-logout {
+            margin: 15px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+        .bottom-logout button {
+            background: #dc3545;
+            padding: 10px 20px;
+            font-size: 14px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -142,6 +133,7 @@
             cursor: pointer;
             font-size: 14px;
         }
+        /* Tables: responsive scrolling */
         .table-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -154,7 +146,7 @@
             min-width: 500px;
         }
         th, td {
-            padding: 10px 8px;
+            padding: 12px 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
             font-size: 13px;
@@ -162,8 +154,7 @@
         th {
             background: #1e3c72;
             color: white;
-            position: sticky;
-            top: 0;
+            font-weight: 600;
         }
         tr:hover {
             background: #f5f5f5;
@@ -171,24 +162,26 @@
         .card {
             background: #f8f9fa;
             border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .card h3 {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             color: #1e3c72;
             border-left: 4px solid #1e3c72;
             padding-left: 10px;
-            font-size: 1.1em;
+            font-size: 1.2em;
         }
-        .grid-2, .grid-3 {
+        /* Consistent grid system */
+        .grid-2, .grid-3, .grid-4 {
             display: grid;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 20px;
+            margin-bottom: 20px;
         }
         .grid-2 { grid-template-columns: repeat(2, 1fr); }
         .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
         .alert {
             padding: 10px;
             border-radius: 5px;
@@ -215,36 +208,34 @@
             margin-bottom: 15px;
         }
         .login-box {
-            max-width: 90%;
-            width: 400px;
-            margin: 30px auto;
-            padding: 20px;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 30px;
             background: white;
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
         .login-box h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: #1e3c72;
-            font-size: 1.4em;
         }
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
         }
         .stat-card {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 15px;
+            padding: 18px;
             border-radius: 10px;
             text-align: center;
             cursor: pointer;
         }
         .stat-card h3 {
-            font-size: 1.6em;
+            font-size: 1.8em;
             margin-bottom: 5px;
         }
         .modal {
@@ -259,34 +250,34 @@
         }
         .modal-content {
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             width: 90%;
             max-width: 450px;
             max-height: 85vh;
             overflow-y: auto;
         }
-        .modal-content h3 { margin-bottom: 15px; }
-        .modal-content input, .modal-content select { margin-bottom: 12px; }
+        .modal-content h3 { margin-bottom: 20px; }
+        .modal-content input, .modal-content select { margin-bottom: 15px; }
         .close-modal {
             float: right;
             cursor: pointer;
-            font-size: 22px;
+            font-size: 24px;
         }
         .active-session-banner {
             background: #e8f0fe;
-            padding: 8px 12px;
+            padding: 10px 15px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
             font-weight: bold;
             color: #1e3c72;
-            font-size: 13px;
+            font-size: 14px;
         }
         .result-type-badge {
             display: inline-block;
-            padding: 2px 6px;
-            border-radius: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
             font-size: 10px;
             font-weight: bold;
             color: white;
@@ -295,15 +286,16 @@
         .result-type-final { background: #28a745; }
         .action-buttons {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             flex-wrap: wrap;
         }
         .action-buttons button {
-            padding: 5px 8px;
+            padding: 4px 8px;
             font-size: 11px;
         }
+        /* Responsive */
         @media (max-width: 768px) {
-            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
             .nav {
                 flex-direction: column;
                 align-items: stretch;
@@ -312,20 +304,6 @@
                 width: 100%;
                 text-align: center;
                 white-space: normal;
-            }
-            .student-nav, .teacher-nav {
-                flex-direction: column;
-            }
-            .student-nav .logout-btn, .teacher-nav .logout-btn {
-                margin-left: 0;
-                width: 100%;
-            }
-            .student-nav .nav-buttons, .teacher-nav .nav-buttons {
-                width: 100%;
-                flex-direction: column;
-            }
-            .student-nav .nav-buttons button, .teacher-nav .nav-buttons button {
-                width: 100%;
             }
             .menu-toggle {
                 display: block;
@@ -338,7 +316,10 @@
             }
             th, td {
                 font-size: 11px;
-                padding: 6px 4px;
+                padding: 8px 5px;
+            }
+            .card {
+                padding: 15px;
             }
         }
         @media (max-width: 480px) {
@@ -351,56 +332,31 @@
 <body>
 <div class="container" id="app">
     <div class="header">
-        <div class="school-logo" id="schoolLogoContainer">
-            <span class="default-logo">🏫</span>
-        </div>
-        <div class="header-text">
-            <h1>TOP-ELECTS COLLEGE</h1>
-            <p>Advanced Result Portal</p>
-        </div>
+        <div class="school-logo" id="schoolLogoContainer"><span class="default-logo">🏫</span></div>
+        <div class="header-text"><h1>TOP-ELECTS COLLEGE</h1><p>Advanced Result Portal</p></div>
         <button class="menu-toggle" onclick="toggleMobileMenu()">☰ Menu</button>
     </div>
     <div id="content"></div>
+    <div id="logoutContainer" class="bottom-logout"></div>
 </div>
-
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h3 id="modalTitle">Edit Item</h3>
-        <div id="modalBody"></div>
-        <button id="modalSaveBtn">Save Changes</button>
-    </div>
-</div>
+<div id="editModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal()">&times;</span><h3 id="modalTitle">Edit Item</h3><div id="modalBody"></div><button id="modalSaveBtn">Save Changes</button></div></div>
 
 <script>
-    function toggleMobileMenu() {
-        const nav = document.querySelector('.nav');
-        if (nav) nav.classList.toggle('collapsed');
-    }
+    function toggleMobileMenu() { const nav = document.querySelector('.nav'); if (nav) nav.classList.toggle('collapsed'); }
     window.toggleMobileMenu = toggleMobileMenu;
-    window.closeModal = function() {
-        document.getElementById('editModal').style.display = 'none';
-    };
+    window.closeModal = function() { document.getElementById('editModal').style.display = 'none'; };
     window.showModal = function(title, bodyHtml, onSave) {
         document.getElementById('modalTitle').innerText = title;
         document.getElementById('modalBody').innerHTML = bodyHtml;
         document.getElementById('editModal').style.display = 'flex';
         window.modalOnSave = onSave;
-        const saveBtn = document.getElementById('modalSaveBtn');
-        saveBtn.onclick = () => {
-            if (window.modalOnSave) window.modalOnSave();
-            closeModal();
-        };
+        document.getElementById('modalSaveBtn').onclick = () => { if (window.modalOnSave) window.modalOnSave(); closeModal(); };
     };
 </script>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-    import { 
-        getFirestore, 
-        doc, getDoc, setDoc, updateDoc,
-        collection, getDocs, addDoc, deleteDoc, query, where, onSnapshot 
-    } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, addDoc, deleteDoc, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyC4211tsKyps-6VaAhmWzqQcua9bA4bYFY",
@@ -410,700 +366,213 @@
         messagingSenderId: "529610323405",
         appId: "1:529610323405:web:049d47c1671c5213c1c084"
     };
-
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
     let currentUser = null;
     let schoolData = { subjects: [], classes: [] };
-    let teachers = [];
-    let students = [];
-    let results = [];
-    let teacherSubjects = [];
-    let sessions = [];
-    let users = [];
+    let teachers = [], students = [], results = [], teacherSubjects = [], sessions = [], users = [];
 
-    function showAlert(containerId, message, type = 'error') {
-        const container = document.getElementById(containerId);
-        if (container) container.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-        setTimeout(() => { if (container) container.innerHTML = ''; }, 3000);
-    }
+    function showAlert(containerId, msg, type='error') { const c = document.getElementById(containerId); if(c) c.innerHTML = `<div class="alert alert-${type}">${msg}</div>`; setTimeout(()=>{if(c)c.innerHTML='';},3000); }
 
     async function loadInitialData() {
         const schoolDoc = await getDoc(doc(db, "portal", "schoolData"));
-        if (schoolDoc.exists()) {
-            schoolData = schoolDoc.data();
-            if (!schoolData.subjects) schoolData.subjects = [];
-            if (!schoolData.classes) schoolData.classes = [];
-        } else {
-            schoolData = {
-                subjects: [
-                    { id: "subj_math", name: "Mathematics", code: "MATH101", category: "Core" },
-                    { id: "subj_eng", name: "English", code: "ENG101", category: "Core" }
-                ],
-                classes: [
-                    { id: "class_ss1", name: "SS1", arms: ["A", "B"] },
-                    { id: "class_ss2", name: "SS2", arms: ["A", "B"] }
-                ]
-            };
-            await setDoc(doc(db, "portal", "schoolData"), schoolData);
-        }
-
-        const usersSnapshot = await getDocs(collection(db, "users"));
-        if (usersSnapshot.empty) {
-            await addDoc(collection(db, "users"), { 
-                username: "admin", password: "admin123", role: "admin", 
-                name: "System Administrator", email: "admin@topelects.edu.ng" 
-            });
-        }
-        setupRealtimeListeners();
+        if (schoolDoc.exists()) schoolData = schoolDoc.data();
+        else { schoolData = { subjects: [{id:"subj_math",name:"Mathematics",code:"MATH101",category:"Core"},{id:"subj_eng",name:"English",code:"ENG101",category:"Core"}], classes: [{id:"class_ss1",name:"SS1",arms:["A","B"]},{id:"class_ss2",name:"SS2",arms:["A","B"]}] }; await setDoc(doc(db,"portal","schoolData"), schoolData); }
+        const usnap = await getDocs(collection(db,"users"));
+        if(usnap.empty) await addDoc(collection(db,"users"), { username:"admin", password:"admin123", role:"admin", name:"System Administrator", email:"admin@topelects.edu.ng" });
+        setupListeners();
     }
-
-    function setupRealtimeListeners() {
-        onSnapshot(collection(db, "teachers"), (snapshot) => {
-            teachers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            rerenderCurrentView();
-        });
-        onSnapshot(collection(db, "students"), (snapshot) => {
-            students = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            rerenderCurrentView();
-        });
-        onSnapshot(collection(db, "results"), (snapshot) => {
-            results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            rerenderCurrentView();
-        });
-        onSnapshot(collection(db, "teacherSubjects"), (snapshot) => {
-            teacherSubjects = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            rerenderCurrentView();
-        });
-        onSnapshot(collection(db, "sessions"), (snapshot) => {
-            sessions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            rerenderCurrentView();
-        });
-        onSnapshot(collection(db, "users"), (snapshot) => {
-            users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            const saved = localStorage.getItem('portal_currentUser');
-            if (saved && !currentUser) {
-                const parsed = JSON.parse(saved);
-                const exists = users.find(u => u.id === parsed.id);
-                if (exists) currentUser = exists;
-                else localStorage.removeItem('portal_currentUser');
-            }
-            rerenderCurrentView();
-        });
-        onSnapshot(doc(db, "portal", "schoolData"), (docSnap) => {
-            if (docSnap.exists()) {
-                schoolData = docSnap.data();
-                updateHeaderLogo();
-                rerenderCurrentView();
-            }
-        });
+    function setupListeners() {
+        onSnapshot(collection(db,"teachers"), s=>{ teachers = s.docs.map(d=>({id:d.id,...d.data()})); rerender(); });
+        onSnapshot(collection(db,"students"), s=>{ students = s.docs.map(d=>({id:d.id,...d.data()})); rerender(); });
+        onSnapshot(collection(db,"results"), s=>{ results = s.docs.map(d=>({id:d.id,...d.data()})); rerender(); });
+        onSnapshot(collection(db,"teacherSubjects"), s=>{ teacherSubjects = s.docs.map(d=>({id:d.id,...d.data()})); rerender(); });
+        onSnapshot(collection(db,"sessions"), s=>{ sessions = s.docs.map(d=>({id:d.id,...d.data()})); rerender(); });
+        onSnapshot(collection(db,"users"), s=>{ users = s.docs.map(d=>({id:d.id,...d.data()})); const saved = localStorage.getItem('portal_currentUser'); if(saved && !currentUser) { const p=JSON.parse(saved); const ex=users.find(u=>u.id===p.id); if(ex) currentUser=ex; else localStorage.removeItem('portal_currentUser'); } rerender(); });
+        onSnapshot(doc(db,"portal","schoolData"), d=>{ if(d.exists()) schoolData=d.data(); updateHeaderLogo(); rerender(); });
     }
-
-    function rerenderCurrentView() {
-        if (!currentUser) renderLogin();
-        else if (currentUser.role === 'admin') renderAdminDashboard();
-        else if (currentUser.role === 'teacher') renderTeacherDashboard();
-        else if (currentUser.role === 'student') renderStudentDashboard();
-        const nav = document.querySelector('.nav');
-        if (nav) nav.classList.remove('collapsed');
+    function rerender() {
+        if(!currentUser) renderLogin();
+        else if(currentUser.role==='admin') renderAdminDashboard();
+        else if(currentUser.role==='teacher') renderTeacherDashboard();
+        else if(currentUser.role==='student') renderStudentDashboard();
+        const nav=document.querySelector('.nav'); if(nav) nav.classList.remove('collapsed');
+        document.getElementById('logoutContainer').innerHTML = currentUser ? '<button onclick="window.logout()" class="logout-bottom">🚪 Logout</button>' : '';
     }
-
     async function updateHeaderLogo() {
-        const logoContainer = document.getElementById('schoolLogoContainer');
-        if (!logoContainer) return;
-        const schoolDoc = await getDoc(doc(db, "portal", "schoolData"));
-        const logo = schoolDoc.exists() ? schoolDoc.data().schoolLogo : null;
-        if (logo) {
-            logoContainer.innerHTML = `<img src="${logo}" alt="Logo" class="school-logo">`;
-        } else {
-            logoContainer.innerHTML = `<span class="default-logo">🏫</span>`;
-        }
+        const logo = (await getDoc(doc(db,"portal","schoolData"))).data()?.schoolLogo;
+        const c=document.getElementById('schoolLogoContainer');
+        if(c) c.innerHTML = logo ? `<img src="${logo}" class="school-logo">` : `<span class="default-logo">🏫</span>`;
     }
+    // ========== CRUD ==========
+    async function addTeacher(d) { const r=await addDoc(collection(db,"teachers"),d); await addDoc(collection(db,"users"),{username:d.username,password:d.password,role:"teacher",name:d.name,email:d.email||"",phone:d.phone||"",teacherId:r.id}); }
+    async function deleteTeacher(id) { const t=(await getDoc(doc(db,"teachers",id))).data(); if(t){ const q=query(collection(db,"users"),where("username","==",t.username),where("role","==","teacher")); (await getDocs(q)).forEach(async u=>await deleteDoc(doc(db,"users",u.id))); } await deleteDoc(doc(db,"teachers",id)); for(let ts of teacherSubjects.filter(ts=>ts.teacherId===id)) await deleteDoc(doc(db,"teacherSubjects",ts.id)); }
+    async function updateTeacher(id,data) { await updateDoc(doc(db,"teachers",id),data); const t=(await getDoc(doc(db,"teachers",id))).data(); const q=query(collection(db,"users"),where("username","==",t.username),where("role","==","teacher")); (await getDocs(q)).forEach(async u=>await updateDoc(doc(db,"users",u.id),{name:data.name,email:data.email,phone:data.phone})); }
+    async function addStudent(d) { const r=await addDoc(collection(db,"students"),d); await addDoc(collection(db,"users"),{username:d.username,password:d.password,role:"student",name:d.name,admissionNo:d.admissionNo,studentId:r.id}); }
+    async function deleteStudent(id) { const s=(await getDoc(doc(db,"students",id))).data(); if(s){ const q=query(collection(db,"users"),where("username","==",s.username),where("role","==","student")); (await getDocs(q)).forEach(async u=>await deleteDoc(doc(db,"users",u.id))); } await deleteDoc(doc(db,"students",id)); for(let r of results.filter(r=>r.studentId===id)) await deleteDoc(doc(db,"results",r.id)); }
+    async function updateStudent(id,data) { await updateDoc(doc(db,"students",id),data); const s=(await getDoc(doc(db,"students",id))).data(); const q=query(collection(db,"users"),where("username","==",s.username),where("role","==","student")); (await getDocs(q)).forEach(async u=>await updateDoc(doc(db,"users",u.id),{name:data.name,admissionNo:data.admissionNo})); }
+    async function addSubject(s) { schoolData.subjects.push(s); await setDoc(doc(db,"portal","schoolData"),schoolData); }
+    async function deleteSubject(id) { schoolData.subjects = schoolData.subjects.filter(s=>s.id!==id); await setDoc(doc(db,"portal","schoolData"),schoolData); }
+    async function updateSubject(id,n,c,cat) { const idx=schoolData.subjects.findIndex(s=>s.id===id); if(idx!==-1){ schoolData.subjects[idx]={...schoolData.subjects[idx],name:n,code:c,category:cat}; await setDoc(doc(db,"portal","schoolData"),schoolData); } }
+    async function addClass(c) { schoolData.classes.push(c); await setDoc(doc(db,"portal","schoolData"),schoolData); }
+    async function deleteClass(id) { schoolData.classes = schoolData.classes.filter(c=>c.id!==id); await setDoc(doc(db,"portal","schoolData"),schoolData); }
+    async function addArmToClass(id,arm) { const cls=schoolData.classes.find(c=>c.id===id); if(cls && !cls.arms.includes(arm)){ cls.arms.push(arm); await setDoc(doc(db,"portal","schoolData"),schoolData); } }
+    async function assignSubject(tid,sid,cls) { await addDoc(collection(db,"teacherSubjects"),{teacherId:tid,subjectId:sid,class:cls}); }
+    async function removeTeacherSubject(id) { await deleteDoc(doc(db,"teacherSubjects",id)); }
+    async function addResult(data) { await addDoc(collection(db,"results"),data); }
+    async function approveResult(id) { await updateDoc(doc(db,"results",id),{status:"approved"}); }
+    async function rejectResult(id) { await updateDoc(doc(db,"results",id),{status:"rejected"}); }
+    async function editResult(id,scores,type) { let total,grade; if(type==='midterm'){ total=scores.ca1+scores.project+scores.midExam; grade=total>=32?'A':total>=28?'B':total>=20?'C':total>=16?'D':'F'; await updateDoc(doc(db,"results",id),{ca1Score:scores.ca1,projectScore:scores.project,midExamScore:scores.midExam,total,grade,status:'pending'}); } else { total=scores.ca+scores.exam; grade=total>=75?'A':total>=65?'B':total>=50?'C':total>=40?'D':'F'; await updateDoc(doc(db,"results",id),{caScore:scores.ca,examScore:scores.exam,total,grade,status:'pending'}); } }
+    async function toggleFee(id,status) { await updateDoc(doc(db,"students",id),{feeStatus:status==='paid'?'unpaid':'paid'}); }
+    async function toggleAccess(id,curr) { await updateDoc(doc(db,"students",id),{canViewResults:!curr}); }
+    async function setActiveSession(year,term) { for(let s of sessions) await updateDoc(doc(db,"sessions",s.id),{isActive:false}); const ex=sessions.find(s=>s.academicYear===year && s.term===term); if(ex) await updateDoc(doc(db,"sessions",ex.id),{isActive:true}); else await addDoc(collection(db,"sessions"),{academicYear:year,term,isActive:true}); }
+    async function deleteUser(userId) { await deleteDoc(doc(db,"users",userId)); }
 
-    // CRUD Operations
-    async function addTeacher(data) {
-        const teacherRef = await addDoc(collection(db, "teachers"), data);
-        await addDoc(collection(db, "users"), {
-            username: data.username, password: data.password, role: "teacher",
-            name: data.name, email: data.email || "", phone: data.phone || "", teacherId: teacherRef.id
-        });
-    }
-    async function deleteTeacher(id) {
-        const teacherDoc = await getDoc(doc(db, "teachers", id));
-        if (teacherDoc.exists()) {
-            const teacher = teacherDoc.data();
-            const q = query(collection(db, "users"), where("username", "==", teacher.username), where("role", "==", "teacher"));
-            const userSnap = await getDocs(q);
-            userSnap.forEach(async (u) => { await deleteDoc(doc(db, "users", u.id)); });
-        }
-        await deleteDoc(doc(db, "teachers", id));
-        const subs = teacherSubjects.filter(ts => ts.teacherId === id);
-        for(let ts of subs) await deleteDoc(doc(db, "teacherSubjects", ts.id));
-    }
-    async function updateTeacher(id, data) {
-        await updateDoc(doc(db, "teachers", id), data);
-        const teacherDoc = await getDoc(doc(db, "teachers", id));
-        const teacher = teacherDoc.data();
-        const q = query(collection(db, "users"), where("username", "==", teacher.username), where("role", "==", "teacher"));
-        const userSnap = await getDocs(q);
-        userSnap.forEach(async (uDoc) => {
-            await updateDoc(doc(db, "users", uDoc.id), { name: data.name, email: data.email, phone: data.phone });
-        });
-    }
-    async function addStudent(data) {
-        const studentRef = await addDoc(collection(db, "students"), data);
-        await addDoc(collection(db, "users"), {
-            username: data.username, password: data.password, role: "student",
-            name: data.name, admissionNo: data.admissionNo, studentId: studentRef.id
-        });
-    }
-    async function deleteStudent(id) {
-        const studentDoc = await getDoc(doc(db, "students", id));
-        if (studentDoc.exists()) {
-            const student = studentDoc.data();
-            const q = query(collection(db, "users"), where("username", "==", student.username), where("role", "==", "student"));
-            const userSnap = await getDocs(q);
-            userSnap.forEach(async (u) => { await deleteDoc(doc(db, "users", u.id)); });
-        }
-        await deleteDoc(doc(db, "students", id));
-        const stdResults = results.filter(r => r.studentId === id);
-        for(let r of stdResults) await deleteDoc(doc(db, "results", r.id));
-    }
-    async function updateStudent(id, data) {
-        await updateDoc(doc(db, "students", id), data);
-        const studentDoc = await getDoc(doc(db, "students", id));
-        const student = studentDoc.data();
-        const q = query(collection(db, "users"), where("username", "==", student.username), where("role", "==", "student"));
-        const userSnap = await getDocs(q);
-        userSnap.forEach(async (uDoc) => {
-            await updateDoc(doc(db, "users", uDoc.id), { name: data.name, admissionNo: data.admissionNo });
-        });
-    }
-    async function addSubject(subject) { schoolData.subjects.push(subject); await setDoc(doc(db, "portal", "schoolData"), schoolData); }
-    async function deleteSubject(id) { schoolData.subjects = schoolData.subjects.filter(s => s.id !== id); await setDoc(doc(db, "portal", "schoolData"), schoolData); }
-    async function updateSubject(id, name, code, category) {
-        const idx = schoolData.subjects.findIndex(s => s.id === id);
-        if (idx !== -1) {
-            schoolData.subjects[idx] = { ...schoolData.subjects[idx], name, code, category };
-            await setDoc(doc(db, "portal", "schoolData"), schoolData);
-        }
-    }
-    async function addClass(c) { schoolData.classes.push(c); await setDoc(doc(db, "portal", "schoolData"), schoolData); }
-    async function deleteClass(id) { schoolData.classes = schoolData.classes.filter(c => c.id !== id); await setDoc(doc(db, "portal", "schoolData"), schoolData); }
-    async function addArmToClass(id, arm) {
-        const cls = schoolData.classes.find(c => c.id === id);
-        if (cls && !cls.arms.includes(arm)) { cls.arms.push(arm); await setDoc(doc(db, "portal", "schoolData"), schoolData); }
-    }
-    async function assignSubject(teacherId, subjectId, className) { await addDoc(collection(db, "teacherSubjects"), { teacherId, subjectId, class: className }); }
-    async function removeTeacherSubject(id) { await deleteDoc(doc(db, "teacherSubjects", id)); }
-    async function addResult(data) { await addDoc(collection(db, "results"), data); }
-    async function approveResult(id) { await updateDoc(doc(db, "results", id), { status: "approved" }); }
-    async function rejectResult(id) { await updateDoc(doc(db, "results", id), { status: "rejected" }); }
-    async function editResult(id, scores, type) {
-        let total, grade;
-        if (type === 'midterm') {
-            total = scores.ca1 + scores.project + scores.midExam;
-            if (total >= 32) grade = 'A';
-            else if (total >= 28) grade = 'B';
-            else if (total >= 20) grade = 'C';
-            else if (total >= 16) grade = 'D';
-            else grade = 'F';
-            await updateDoc(doc(db, "results", id), { ca1Score: scores.ca1, projectScore: scores.project, midExamScore: scores.midExam, total, grade, status: 'pending' });
-        } else {
-            total = scores.ca + scores.exam;
-            if (total >= 75) grade = 'A';
-            else if (total >= 65) grade = 'B';
-            else if (total >= 50) grade = 'C';
-            else if (total >= 40) grade = 'D';
-            else grade = 'F';
-            await updateDoc(doc(db, "results", id), { caScore: scores.ca, examScore: scores.exam, total, grade, status: 'pending' });
-        }
-    }
-    async function toggleFee(id, status) { await updateDoc(doc(db, "students", id), { feeStatus: status === 'paid' ? 'unpaid' : 'paid' }); }
-    async function toggleAccess(id, curr) { await updateDoc(doc(db, "students", id), { canViewResults: !curr }); }
-    async function setActiveSession(year, term) {
-        for(let s of sessions) await updateDoc(doc(db, "sessions", s.id), { isActive: false });
-        const existing = sessions.find(s => s.academicYear === year && s.term === term);
-        if (existing) await updateDoc(doc(db, "sessions", existing.id), { isActive: true });
-        else await addDoc(collection(db, "sessions"), { academicYear: year, term, isActive: true });
-    }
-    async function deleteUser(userId) { await deleteDoc(doc(db, "users", userId)); }
-
-    // Login
+    // ========== LOGIN ==========
     function renderLogin() {
-        document.getElementById('content').innerHTML = `
-            <div class="login-box">
-                <h2>🔐 Result Portal Login</h2>
-                <div id="loginAlert"></div>
-                <div class="form-group"><label>Username</label><input type="text" id="loginUsername"></div>
-                <div class="form-group"><label>Password</label><input type="password" id="loginPassword"></div>
-                <div class="form-group"><label>Role</label><select id="loginRole"><option value="admin">Admin</option><option value="teacher">Teacher</option><option value="student">Student/Parent</option></select></div>
-                <button onclick="window.handleLogin()" style="width:100%">Login</button>
-            </div>
-        `;
+        document.getElementById('content').innerHTML = `<div class="login-box"><h2>🔐 Result Portal Login</h2><div id="loginAlert"></div><div class="form-group"><label>Username</label><input type="text" id="loginUsername"></div><div class="form-group"><label>Password</label><input type="password" id="loginPassword"></div><div class="form-group"><label>Role</label><select id="loginRole"><option value="admin">Admin</option><option value="teacher">Teacher</option><option value="student">Student/Parent</option></select></div><button onclick="window.handleLogin()" style="width:100%">Login</button></div>`;
     }
     window.handleLogin = function() {
-        const username = document.getElementById('loginUsername').value.trim();
-        const password = document.getElementById('loginPassword').value.trim();
-        const role = document.getElementById('loginRole').value;
-        const user = users.find(u => u.username === username && u.password === password && u.role === role);
-        if (user) {
-            currentUser = { id: user.id, username: user.username, role: user.role, name: user.name };
-            if (currentUser.role === 'teacher') {
-                const teacherRecord = teachers.find(t => t.username === currentUser.username);
-                if (teacherRecord) currentUser.teacherId = teacherRecord.id;
-            } else if (currentUser.role === 'student') {
-                const studentRecord = students.find(s => s.username === currentUser.username);
-                if (studentRecord) currentUser.studentId = studentRecord.id;
-            }
-            localStorage.setItem('portal_currentUser', JSON.stringify(currentUser));
-            rerenderCurrentView();
-        } else {
-            showAlert('loginAlert', '❌ Invalid credentials', 'error');
-        }
+        const user = users.find(u=>u.username===document.getElementById('loginUsername').value.trim() && u.password===document.getElementById('loginPassword').value.trim() && u.role===document.getElementById('loginRole').value);
+        if(user){ currentUser={id:user.id,username:user.username,role:user.role,name:user.name}; if(currentUser.role==='teacher') currentUser.teacherId=teachers.find(t=>t.username===currentUser.username)?.id; else if(currentUser.role==='student') currentUser.studentId=students.find(s=>s.username===currentUser.username)?.id; localStorage.setItem('portal_currentUser',JSON.stringify(currentUser)); rerender(); } else showAlert('loginAlert','❌ Invalid credentials','error');
     };
-    window.logout = function() { currentUser = null; localStorage.removeItem('portal_currentUser'); renderLogin(); };
+    window.logout = function() { currentUser=null; localStorage.removeItem('portal_currentUser'); rerender(); };
 
-    // Teacher Dashboard
+    // ========== TEACHER DASHBOARD (fully organized) ==========
     function renderTeacherDashboard() {
-        if (!currentUser.teacherId) {
-            const teacherRecord = teachers.find(t => t.username === currentUser.username);
-            if (teacherRecord) currentUser.teacherId = teacherRecord.id;
-        }
-        document.getElementById('content').innerHTML = `
-            <div class="teacher-nav">
-                <div class="nav-buttons">
-                    <button onclick="window.showTeacherSection('midterm')">📝 Mid Term</button>
-                    <button onclick="window.showTeacherSection('final')">📝 Final Exam</button>
-                    <button onclick="window.showTeacherSection('myResults')">📊 My Uploads</button>
-                    <button onclick="window.showTeacherSection('analytics')">📈 Analytics</button>
-                </div>
-                <button class="logout-btn" onclick="window.logout()">🚪 Logout</button>
-            </div>
-            <div class="main-content" id="teacherContent">
-                <div class="card"><h3>Welcome, ${currentUser.name || currentUser.username}</h3></div>
-            </div>
-        `;
+        if(!currentUser.teacherId) currentUser.teacherId = teachers.find(t=>t.username===currentUser.username)?.id;
+        document.getElementById('content').innerHTML = `<div class="nav"><button onclick="window.showTeacherSection('midterm')">📝 Mid Term</button><button onclick="window.showTeacherSection('final')">📝 Final Exam</button><button onclick="window.showTeacherSection('myResults')">📊 My Uploads</button><button onclick="window.showTeacherSection('analytics')">📈 Analytics</button></div><div class="main-content" id="teacherContent"><div class="card"><h3>Welcome, ${currentUser.name||currentUser.username}</h3></div></div>`;
         showTeacherSection('midterm');
     }
     window.showTeacherSection = function(section) {
-        const container = document.getElementById('teacherContent');
-        if (!container) return;
-        const myAssignments = teacherSubjects.filter(ts => ts.teacherId === currentUser.teacherId);
-        const activeSession = sessions.find(s => s.isActive) || { academicYear: '2024/2025', term: 'First Term' };
-        if (section === 'midterm') {
-            if (myAssignments.length === 0) {
-                container.innerHTML = `<div class="card"><div class="alert alert-info">No subjects assigned. Contact admin.</div></div>`;
-                return;
-            }
-            container.innerHTML = `
-                <div class="card">
-                    <h3>📝 Mid Term Result (Total 40 marks)</h3>
-                    <div id="scoreAlert"></div>
-                    <div class="grid-2">
-                        <select id="midAssignmentSelect" onchange="window.loadStudentsForMidterm()"><option value="">-- Subject & Class --</option>${myAssignments.map(ass => { const sub = schoolData.subjects.find(s => s.id === ass.subjectId); return `<option value="${ass.id}">${sub?.name} - ${ass.class}</option>`; }).join('')}</select>
-                        <select id="midStudentSelect"><option value="">-- Student --</option></select>
-                    </div>
-                    <div class="grid-3">
-                        <input type="number" id="ca1Score" placeholder="CA1 (0-10)" min="0" max="10" value="0">
-                        <input type="number" id="projectScore" placeholder="Project (0-10)" min="0" max="10" value="0">
-                        <input type="number" id="midExamScore" placeholder="Mid Exam (0-30)" min="0" max="30" value="0">
-                    </div>
-                    <button onclick="window.submitMidTermResult()">✅ Submit Mid Term Result</button>
-                    <div class="alert alert-info" style="margin-top:10px"><strong>Active Session:</strong> ${activeSession.term} ${activeSession.academicYear}</div>
-                </div>
-            `;
-        } else if (section === 'final') {
-            if (myAssignments.length === 0) {
-                container.innerHTML = `<div class="card"><div class="alert alert-info">No subjects assigned. Contact admin.</div></div>`;
-                return;
-            }
-            container.innerHTML = `
-                <div class="card">
-                    <h3>📝 Final Exam Result (Total 100 marks)</h3>
-                    <div id="finalAlert"></div>
-                    <div class="grid-2">
-                        <select id="finalAssignmentSelect" onchange="window.loadStudentsForFinal()"><option value="">-- Subject & Class --</option>${myAssignments.map(ass => { const sub = schoolData.subjects.find(s => s.id === ass.subjectId); return `<option value="${ass.id}">${sub?.name} - ${ass.class}</option>`; }).join('')}</select>
-                        <select id="finalStudentSelect"><option value="">-- Student --</option></select>
-                    </div>
-                    <div class="grid-2">
-                        <input type="number" id="caScore" placeholder="CA (0-40)" min="0" max="40" value="0">
-                        <input type="number" id="examScore" placeholder="Exam (0-60)" min="0" max="60" value="0">
-                    </div>
-                    <button onclick="window.submitFinalResult()">✅ Submit Final Exam Result</button>
-                    <div class="alert alert-info" style="margin-top:10px"><strong>Active Session:</strong> ${activeSession.term} ${activeSession.academicYear}</div>
-                </div>
-            `;
-        } else if (section === 'myResults') {
-            const myResults = results.filter(r => r.teacherId === currentUser.teacherId);
-            container.innerHTML = `<div class="card"><h3>📋 My Submitted Results</h3>${myResults.length === 0 ? '<p>No results submitted yet.</p>' : `<div class="table-wrapper"><table><thead><tr><th>Student</th><th>Subject</th><th>Class</th><th>Type</th><th>Scores</th><th>Total</th><th>Grade</th><th>Status</th></tr></thead><tbody>${myResults.map(r => `<tr><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td><span class="result-type-badge ${r.resultType === 'midterm' ? 'result-type-midterm' : 'result-type-final'}">${r.resultType === 'midterm' ? 'Mid Term' : 'Final'}</span></td><td>${r.resultType === 'midterm' ? `CA1:${r.ca1Score}, Proj:${r.projectScore}, Exam:${r.midExamScore}` : `CA:${r.caScore}, Exam:${r.examScore}`}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td><td class="${r.status === 'approved' ? 'status-approved' : 'status-pending'}">${r.status}</td></tr>`).join('')}</tbody></table></div>`}</div>`;
-        } else if (section === 'analytics') {
-            const myResults = results.filter(r => r.teacherId === currentUser.teacherId && r.status === 'approved');
-            const midCount = myResults.filter(r => r.resultType === 'midterm').length;
-            const finalCount = myResults.filter(r => r.resultType === 'final').length;
-            const midAvg = myResults.filter(r => r.resultType === 'midterm').reduce((a,b)=>a+b.total,0) / (midCount || 1);
-            const finalAvg = myResults.filter(r => r.resultType === 'final').reduce((a,b)=>a+b.total,0) / (finalCount || 1);
-            container.innerHTML = `<div class="card"><h3>📊 Analytics</h3><p>Mid Term: ${midCount} results, Average: ${midAvg.toFixed(1)}/40</p><p>Final Exam: ${finalCount} results, Average: ${finalAvg.toFixed(1)}/100</p><p>Subjects taught: ${teacherSubjects.filter(ts=>ts.teacherId===currentUser.teacherId).length}</p></div>`;
+        const cont = document.getElementById('teacherContent');
+        if(!cont) return;
+        const myAssign = teacherSubjects.filter(ts=>ts.teacherId===currentUser.teacherId);
+        const activeSess = sessions.find(s=>s.isActive) || { academicYear:'2024/2025', term:'First Term' };
+        if(section==='midterm'){
+            if(!myAssign.length) { cont.innerHTML = `<div class="card"><div class="alert alert-info">No subjects assigned. Contact admin.</div></div>`; return; }
+            cont.innerHTML = `<div class="card"><h3>📝 Mid Term Result (Total 40)</h3><div id="scoreAlert"></div><div class="grid-2"><select id="midAssignmentSelect" onchange="window.loadStudentsForMidterm()"><option value="">-- Subject & Class --</option>${myAssign.map(ass=>{const sub=schoolData.subjects.find(s=>s.id===ass.subjectId); return `<option value="${ass.id}">${sub?.name} - ${ass.class}</option>`;}).join('')}</select><select id="midStudentSelect"><option value="">-- Student --</option></select></div><div class="grid-3"><input type="number" id="ca1Score" placeholder="CA1 (0-10)" min="0" max="10" value="0"><input type="number" id="projectScore" placeholder="Project (0-10)" min="0" max="10" value="0"><input type="number" id="midExamScore" placeholder="Mid Exam (0-30)" min="0" max="30" value="0"></div><button onclick="window.submitMidTermResult()">✅ Submit Mid Term Result</button><div class="alert alert-info" style="margin-top:10px"><strong>Active Session:</strong> ${activeSess.term} ${activeSess.academicYear}</div></div>`;
+        } else if(section==='final'){
+            if(!myAssign.length) { cont.innerHTML = `<div class="card"><div class="alert alert-info">No subjects assigned. Contact admin.</div></div>`; return; }
+            cont.innerHTML = `<div class="card"><h3>📝 Final Exam Result (Total 100)</h3><div id="finalAlert"></div><div class="grid-2"><select id="finalAssignmentSelect" onchange="window.loadStudentsForFinal()"><option value="">-- Subject & Class --</option>${myAssign.map(ass=>{const sub=schoolData.subjects.find(s=>s.id===ass.subjectId); return `<option value="${ass.id}">${sub?.name} - ${ass.class}</option>`;}).join('')}</select><select id="finalStudentSelect"><option value="">-- Student --</option></select></div><div class="grid-2"><input type="number" id="caScore" placeholder="CA (0-40)" min="0" max="40" value="0"><input type="number" id="examScore" placeholder="Exam (0-60)" min="0" max="60" value="0"></div><button onclick="window.submitFinalResult()">✅ Submit Final Exam Result</button><div class="alert alert-info" style="margin-top:10px"><strong>Active Session:</strong> ${activeSess.term} ${activeSess.academicYear}</div></div>`;
+        } else if(section==='myResults'){
+            const myRes = results.filter(r=>r.teacherId===currentUser.teacherId);
+            cont.innerHTML = `<div class="card"><h3>📋 My Submitted Results</h3>${myRes.length===0?'<p>No results yet.</p>':`<div class="table-wrapper"><table><thead><tr><th>Student</th><th>Subject</th><th>Class</th><th>Type</th><th>Scores</th><th>Total</th><th>Grade</th><th>Status</th></tr></thead><tbody>${myRes.map(r=>`<tr><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td><span class="result-type-badge ${r.resultType==='midterm'?'result-type-midterm':'result-type-final'}">${r.resultType==='midterm'?'Mid Term':'Final'}</span></td><td>${r.resultType==='midterm'?`CA1:${r.ca1Score}, Proj:${r.projectScore}, Exam:${r.midExamScore}`:`CA:${r.caScore}, Exam:${r.examScore}`}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td><td class="${r.status==='approved'?'status-approved':'status-pending'}">${r.status}</td></tr>`).join('')}</tbody></table></div>`}</div>`;
+        } else if(section==='analytics'){
+            const myRes = results.filter(r=>r.teacherId===currentUser.teacherId && r.status==='approved');
+            const mid = myRes.filter(r=>r.resultType==='midterm').length;
+            const fin = myRes.filter(r=>r.resultType==='final').length;
+            const avgMid = myRes.filter(r=>r.resultType==='midterm').reduce((a,b)=>a+b.total,0)/(mid||1);
+            const avgFin = myRes.filter(r=>r.resultType==='final').reduce((a,b)=>a+b.total,0)/(fin||1);
+            cont.innerHTML = `<div class="card"><h3>📊 Analytics</h3><p>Mid Term: ${mid} results, Avg: ${avgMid.toFixed(1)}/40</p><p>Final Exam: ${fin} results, Avg: ${avgFin.toFixed(1)}/100</p><p>Subjects: ${teacherSubjects.filter(ts=>ts.teacherId===currentUser.teacherId).length}</p></div>`;
         }
     };
-    window.loadStudentsForMidterm = function() {
-        const id = document.getElementById('midAssignmentSelect')?.value;
-        if (!id) return;
-        const assignment = teacherSubjects.find(ts => ts.id === id);
-        if (!assignment) return;
-        const classStudents = students.filter(s => s.class === assignment.class);
-        const select = document.getElementById('midStudentSelect');
-        if (select) select.innerHTML = `<option value="">-- Select Student --</option>` + classStudents.map(s => `<option value="${s.id}">${s.name} (${s.admissionNo})</option>`).join('');
-    };
-    window.loadStudentsForFinal = function() {
-        const id = document.getElementById('finalAssignmentSelect')?.value;
-        if (!id) return;
-        const assignment = teacherSubjects.find(ts => ts.id === id);
-        if (!assignment) return;
-        const classStudents = students.filter(s => s.class === assignment.class);
-        const select = document.getElementById('finalStudentSelect');
-        if (select) select.innerHTML = `<option value="">-- Select Student --</option>` + classStudents.map(s => `<option value="${s.id}">${s.name} (${s.admissionNo})</option>`).join('');
-    };
+    window.loadStudentsForMidterm = function() { const id=document.getElementById('midAssignmentSelect')?.value; if(!id) return; const ass=teacherSubjects.find(ts=>ts.id===id); if(!ass) return; const stu=students.filter(s=>s.class===ass.class); const sel=document.getElementById('midStudentSelect'); if(sel) sel.innerHTML='<option value="">-- Student --</option>'+stu.map(s=>`<option value="${s.id}">${s.name} (${s.admissionNo})</option>`).join(''); };
+    window.loadStudentsForFinal = function() { const id=document.getElementById('finalAssignmentSelect')?.value; if(!id) return; const ass=teacherSubjects.find(ts=>ts.id===id); if(!ass) return; const stu=students.filter(s=>s.class===ass.class); const sel=document.getElementById('finalStudentSelect'); if(sel) sel.innerHTML='<option value="">-- Student --</option>'+stu.map(s=>`<option value="${s.id}">${s.name} (${s.admissionNo})</option>`).join(''); };
     window.submitMidTermResult = async function() {
-        const assignmentId = document.getElementById('midAssignmentSelect')?.value;
-        const studentId = document.getElementById('midStudentSelect')?.value;
-        const ca1 = parseInt(document.getElementById('ca1Score')?.value || '0');
-        const project = parseInt(document.getElementById('projectScore')?.value || '0');
-        const midExam = parseInt(document.getElementById('midExamScore')?.value || '0');
-        if (!assignmentId || !studentId) { showAlert('scoreAlert', 'Select subject and student', 'error'); return; }
-        if (ca1<0 || ca1>10 || project<0 || project>10 || midExam<0 || midExam>30) { showAlert('scoreAlert', 'CA1 0-10, Project 0-10, Mid Exam 0-30', 'error'); return; }
-        const assignment = teacherSubjects.find(ts => ts.id === assignmentId);
-        const student = students.find(s => s.id === studentId);
-        if (!assignment || !student) return;
-        const subject = schoolData.subjects.find(s => s.id === assignment.subjectId);
-        const total = ca1 + project + midExam;
-        let grade = 'F';
-        if (total >= 32) grade = 'A';
-        else if (total >= 28) grade = 'B';
-        else if (total >= 20) grade = 'C';
-        else if (total >= 16) grade = 'D';
-        const activeSession = sessions.find(s => s.isActive) || { academicYear: '2024/2025', term: 'First Term' };
-        await addResult({
-            studentId: student.id, studentName: student.name, admissionNo: student.admissionNo,
-            subjectId: subject.id, subject: subject.name, class: student.class,
-            term: activeSession.term, academicYear: activeSession.academicYear,
-            resultType: 'midterm', ca1Score: ca1, projectScore: project, midExamScore: midExam,
-            total, grade, status: 'pending', teacherId: currentUser.teacherId,
-            teacher: currentUser.name || currentUser.username, timestamp: new Date().toISOString()
-        });
-        showAlert('scoreAlert', 'Mid Term result submitted! Pending approval.', 'success');
-        document.getElementById('ca1Score').value = '0';
-        document.getElementById('projectScore').value = '0';
-        document.getElementById('midExamScore').value = '0';
-        document.getElementById('midStudentSelect').value = '';
+        const assId=document.getElementById('midAssignmentSelect')?.value, stuId=document.getElementById('midStudentSelect')?.value, ca1=parseInt(document.getElementById('ca1Score')?.value||0), proj=parseInt(document.getElementById('projectScore')?.value||0), mid=parseInt(document.getElementById('midExamScore')?.value||0);
+        if(!assId||!stuId) { showAlert('scoreAlert','Select subject and student','error'); return; }
+        if(ca1<0||ca1>10||proj<0||proj>10||mid<0||mid>30) { showAlert('scoreAlert','CA1 0-10, Project 0-10, Mid Exam 0-30','error'); return; }
+        const ass=teacherSubjects.find(ts=>ts.id===assId), stu=students.find(s=>s.id===stuId);
+        if(!ass||!stu) return;
+        const sub=schoolData.subjects.find(s=>s.id===ass.subjectId);
+        const total=ca1+proj+mid;
+        let grade='F'; if(total>=32) grade='A'; else if(total>=28) grade='B'; else if(total>=20) grade='C'; else if(total>=16) grade='D';
+        const active = sessions.find(s=>s.isActive)||{academicYear:'2024/2025',term:'First Term'};
+        await addResult({ studentId:stu.id, studentName:stu.name, admissionNo:stu.admissionNo, subjectId:sub.id, subject:sub.name, class:stu.class, term:active.term, academicYear:active.academicYear, resultType:'midterm', ca1Score:ca1, projectScore:proj, midExamScore:mid, total, grade, status:'pending', teacherId:currentUser.teacherId, teacher:currentUser.name||currentUser.username, timestamp:new Date().toISOString() });
+        showAlert('scoreAlert','Mid Term result submitted! Pending approval.','success');
+        document.getElementById('ca1Score').value='0'; document.getElementById('projectScore').value='0'; document.getElementById('midExamScore').value='0'; document.getElementById('midStudentSelect').value='';
     };
     window.submitFinalResult = async function() {
-        const assignmentId = document.getElementById('finalAssignmentSelect')?.value;
-        const studentId = document.getElementById('finalStudentSelect')?.value;
-        const ca = parseInt(document.getElementById('caScore')?.value || '0');
-        const exam = parseInt(document.getElementById('examScore')?.value || '0');
-        if (!assignmentId || !studentId) { showAlert('finalAlert', 'Select subject and student', 'error'); return; }
-        if (ca<0 || ca>40 || exam<0 || exam>60) { showAlert('finalAlert', 'CA 0-40, Exam 0-60', 'error'); return; }
-        const assignment = teacherSubjects.find(ts => ts.id === assignmentId);
-        const student = students.find(s => s.id === studentId);
-        if (!assignment || !student) return;
-        const subject = schoolData.subjects.find(s => s.id === assignment.subjectId);
-        const total = ca + exam;
-        let grade = 'F';
-        if (total >= 75) grade = 'A';
-        else if (total >= 65) grade = 'B';
-        else if (total >= 50) grade = 'C';
-        else if (total >= 40) grade = 'D';
-        const activeSession = sessions.find(s => s.isActive) || { academicYear: '2024/2025', term: 'First Term' };
-        await addResult({
-            studentId: student.id, studentName: student.name, admissionNo: student.admissionNo,
-            subjectId: subject.id, subject: subject.name, class: student.class,
-            term: activeSession.term, academicYear: activeSession.academicYear,
-            resultType: 'final', caScore: ca, examScore: exam,
-            total, grade, status: 'pending', teacherId: currentUser.teacherId,
-            teacher: currentUser.name || currentUser.username, timestamp: new Date().toISOString()
-        });
-        showAlert('finalAlert', 'Final Exam result submitted! Pending approval.', 'success');
-        document.getElementById('caScore').value = '0';
-        document.getElementById('examScore').value = '0';
-        document.getElementById('finalStudentSelect').value = '';
+        const assId=document.getElementById('finalAssignmentSelect')?.value, stuId=document.getElementById('finalStudentSelect')?.value, ca=parseInt(document.getElementById('caScore')?.value||0), exam=parseInt(document.getElementById('examScore')?.value||0);
+        if(!assId||!stuId) { showAlert('finalAlert','Select subject and student','error'); return; }
+        if(ca<0||ca>40||exam<0||exam>60) { showAlert('finalAlert','CA 0-40, Exam 0-60','error'); return; }
+        const ass=teacherSubjects.find(ts=>ts.id===assId), stu=students.find(s=>s.id===stuId);
+        if(!ass||!stu) return;
+        const sub=schoolData.subjects.find(s=>s.id===ass.subjectId);
+        const total=ca+exam;
+        let grade='F'; if(total>=75) grade='A'; else if(total>=65) grade='B'; else if(total>=50) grade='C'; else if(total>=40) grade='D';
+        const active = sessions.find(s=>s.isActive)||{academicYear:'2024/2025',term:'First Term'};
+        await addResult({ studentId:stu.id, studentName:stu.name, admissionNo:stu.admissionNo, subjectId:sub.id, subject:sub.name, class:stu.class, term:active.term, academicYear:active.academicYear, resultType:'final', caScore:ca, examScore:exam, total, grade, status:'pending', teacherId:currentUser.teacherId, teacher:currentUser.name||currentUser.username, timestamp:new Date().toISOString() });
+        showAlert('finalAlert','Final Exam result submitted! Pending approval.','success');
+        document.getElementById('caScore').value='0'; document.getElementById('examScore').value='0'; document.getElementById('finalStudentSelect').value='';
     };
 
-    // Admin Dashboard
+    // ========== ADMIN DASHBOARD (perfectly aligned) ==========
     function renderAdminDashboard() {
-        const pending = results.filter(r => r.status === 'pending').length;
-        const activeSession = sessions.find(s => s.isActive) || { academicYear: 'Not set', term: 'No active session' };
-        document.getElementById('content').innerHTML = `
-            <div class="nav">
-                <button onclick="window.showAdminSection('dashboard')">📊 Home</button>
-                <button onclick="window.showAdminSection('subjects')">📚 Subjects</button>
-                <button onclick="window.showAdminSection('teachers')">👨‍🏫 Teachers</button>
-                <button onclick="window.showAdminSection('teacherSubjects')">📋 Assign</button>
-                <button onclick="window.showAdminSection('students')">👨‍🎓 Students</button>
-                <button onclick="window.showAdminSection('users')">👥 Users</button>
-                <button onclick="window.showAdminSection('feeManagement')">💰 Fees</button>
-                <button onclick="window.showAdminSection('resultApproval')">✅ Approve</button>
-                <button onclick="window.showAdminSection('allResults')">📖 Results</button>
-                <button onclick="window.showAdminSection('classes')">🏫 Classes</button>
-                <button onclick="window.showAdminSection('sessions')">📅 Sessions</button>
-                <button onclick="window.showAdminSection('reports')">📊 Reports</button>
-                <button onclick="window.showChangePassword()">🔐 Password</button>
-                <button onclick="window.showUploadLogo()">🖼️ Logo</button>
-                <button class="logout-btn" onclick="window.logout()">🚪 Logout</button>
-            </div>
-            <div class="main-content" id="adminContent">
-                <div class="active-session-banner">📅 <strong>Active Session:</strong> ${activeSession.term} ${activeSession.academicYear}</div>
-                <div class="stats">
-                    <div class="stat-card"><h3>${teachers.length}</h3><p>Teachers</p></div>
-                    <div class="stat-card"><h3>${students.length}</h3><p>Students</p></div>
-                    <div class="stat-card"><h3>${pending}</h3><p>Pending</p></div>
-                    <div class="stat-card"><h3>${students.filter(s => s.feeStatus !== 'paid').length}</h3><p>Defaulters</p></div>
-                </div>
-                <div class="card"><button onclick="window.showAdminSection('resultApproval')">✅ Approve Results (${pending})</button></div>
-            </div>
-        `;
+        const pending = results.filter(r=>r.status==='pending').length;
+        const active = sessions.find(s=>s.isActive)||{academicYear:'Not set',term:'No active session'};
+        document.getElementById('content').innerHTML = `<div class="nav"><button onclick="window.showAdminSection('dashboard')">📊 Home</button><button onclick="window.showAdminSection('subjects')">📚 Subjects</button><button onclick="window.showAdminSection('teachers')">👨‍🏫 Teachers</button><button onclick="window.showAdminSection('teacherSubjects')">📋 Assign</button><button onclick="window.showAdminSection('students')">👨‍🎓 Students</button><button onclick="window.showAdminSection('users')">👥 Users</button><button onclick="window.showAdminSection('feeManagement')">💰 Fees</button><button onclick="window.showAdminSection('resultApproval')">✅ Approve</button><button onclick="window.showAdminSection('allResults')">📖 Results</button><button onclick="window.showAdminSection('classes')">🏫 Classes</button><button onclick="window.showAdminSection('sessions')">📅 Sessions</button><button onclick="window.showAdminSection('reports')">📊 Reports</button><button onclick="window.showChangePassword()">🔐 Password</button><button onclick="window.showUploadLogo()">🖼️ Logo</button></div><div class="main-content" id="adminContent"><div class="active-session-banner">📅 <strong>Active Session:</strong> ${active.term} ${active.academicYear}</div><div class="stats"><div class="stat-card"><h3>${teachers.length}</h3><p>Teachers</p></div><div class="stat-card"><h3>${students.length}</h3><p>Students</p></div><div class="stat-card"><h3>${pending}</h3><p>Pending</p></div><div class="stat-card"><h3>${students.filter(s=>s.feeStatus!=='paid').length}</h3><p>Defaulters</p></div></div><div class="card"><button onclick="window.showAdminSection('resultApproval')">✅ Approve Results (${pending})</button></div></div>`;
         showAdminSection('dashboard');
     }
     window.showAdminSection = function(section) {
-        const container = document.getElementById('adminContent');
-        if (!container) return;
-        if (section === 'dashboard') {
-            const activeSession = sessions.find(s => s.isActive) || { academicYear: 'Not set', term: 'No active session' };
-            container.innerHTML = `<div class="active-session-banner">📅 <strong>Active Session:</strong> ${activeSession.term} ${activeSession.academicYear}</div><div class="card"><h3>Real-Time Dashboard</h3><p>All changes sync instantly across devices.</p></div>`;
-        } else if (section === 'users') {
-            container.innerHTML = `<div class="card"><h3>👥 All User Accounts</h3><div class="table-wrapper"><table><thead><tr><th>Username</th><th>Name</th><th>Role</th><th>Email/ID</th><th>Action</th></tr></thead><tbody>${users.map(u => `<tr><td>${u.username}</td><td>${u.name || '-'}</td><td>${u.role}</td><td>${u.email || u.admissionNo || '-'}</td><td>${u.role !== 'admin' ? `<button onclick="window.deleteUserAccount('${u.id}')">Delete</button>` : 'Admin'}</td></tr>`).join('')}</tbody></table></div></div>`;
-        } else if (section === 'resultApproval') {
-            const pending = results.filter(r => r.status === 'pending');
-            container.innerHTML = `<div class="card"><h3>✅ Pending Results (${pending.length})</h3>${pending.length === 0 ? '<p>No pending results.</p>' : `<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Student</th><th>Subject</th><th>Class</th><th>Scores</th><th>Total</th><th>Grade</th><th>Teacher</th><th>Actions</th></tr></thead><tbody>${pending.map(r => `<tr><td><span class="result-type-badge ${r.resultType === 'midterm' ? 'result-type-midterm' : 'result-type-final'}">${r.resultType === 'midterm' ? 'Mid Term' : 'Final'}</span></td><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.resultType === 'midterm' ? `CA1:${r.ca1Score}, Proj:${r.projectScore}, Exam:${r.midExamScore}` : `CA:${r.caScore}, Exam:${r.examScore}`}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td><td>${r.teacher}</td><td class="action-buttons"><button onclick="window.approveResult('${r.id}')">Approve</button><button onclick="window.rejectResult('${r.id}')">Reject</button></td></tr>`).join('')}</tbody></table></div>`}</div>`;
-        } else if (section === 'teachers') {
-            container.innerHTML = `<div class="card"><h3>➕ Add Teacher</h3><div class="grid-3"><input id="tName" placeholder="Full Name"><input id="tUser" placeholder="Username"><input id="tPass" type="password" placeholder="Password"><input id="tEmail" placeholder="Email"><input id="tPhone" placeholder="Phone"></div><button onclick="window.addTeacher()">Add Teacher</button></div>
-            <div class="card"><h3>All Teachers</h3><div class="table-wrapper"><table><thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead><tbody>${teachers.map(t => `<tr><td>${t.name}</td><td>${t.username}</td><td>${t.email || '-'}</td><td>${t.phone || '-'}</td><td class="action-buttons"><button onclick="window.editTeacher('${t.id}')">✏️ Edit</button><button onclick="window.deleteTeacher('${t.id}')">🗑️ Delete</button></td></tr>`).join('')}</tbody></table></div></div>`;
-        } else if (section === 'students') {
-            container.innerHTML = `<div class="card"><h3>➕ Add Student</h3><div class="grid-3"><input id="sName" placeholder="Full Name"><input id="sAdm" placeholder="Admission No"><select id="sClass">${schoolData.classes.flatMap(c => c.arms.map(arm => `<option value="${c.name} ${arm}">${c.name} ${arm}</option>`)).join('')}</select><input id="sParentEmail" placeholder="Parent Email"><input id="sUser" placeholder="Username"><input id="sPass" type="password" placeholder="Password"></div><button onclick="window.addStudent()">Add Student</button></div>
-            <div class="card"><h3>All Students</h3><div class="table-wrapper"><table><thead><tr><th>Admission</th><th>Name</th><th>Class</th><th>Fee</th><th>Access</th><th>Actions</th></tr></thead><tbody>${students.map(s => `<tr><td>${s.admissionNo}</td><td>${s.name}</td><td>${s.class}</td><td class="${s.feeStatus === 'paid' ? 'fee-paid' : 'fee-unpaid'}">${s.feeStatus}</td><td>${s.canViewResults ? '✅ Allowed' : '❌ Blocked'}</td><td class="action-buttons"><button onclick="window.editStudent('${s.id}')">✏️ Edit</button><button onclick="window.deleteStudent('${s.id}')">🗑️ Delete</button></td></tr>`).join('')}</tbody></table></div></div>`;
-        } else if (section === 'subjects') {
-            container.innerHTML = `<div class="card"><h3>➕ Add Subject</h3><div class="grid-2"><input id="subjName" placeholder="Subject Name"><input id="subjCode" placeholder="Subject Code"><select id="subjCat"><option>Core</option><option>Science</option><option>Commercial</option><option>Arts</option><option>Elective</option></select></div><button onclick="window.addSubject()">Add Subject</button></div>
-            <div class="card"><h3>All Subjects</h3><div class="table-wrapper"><table><thead><tr><th>Code</th><th>Name</th><th>Category</th><th>Actions</th><tr></thead><tbody>${schoolData.subjects.map(s => `<tr><td>${s.code}</td><td>${s.name}</td><td>${s.category}</td><td class="action-buttons"><button onclick="window.editSubject('${s.id}')">✏️ Edit</button><button onclick="window.deleteSubject('${s.id}')">🗑️ Delete</button></td></tr>`).join('')}</tbody></table></div></div>`;
-        } else if (section === 'feeManagement') {
-            container.innerHTML = `<div class="card"><h3>💰 Fee Management</h3><div class="table-wrapper"><table><thead><tr><th>Student</th><th>Class</th><th>Fee Status</th><th>Result Access</th><th>Actions</th></tr></thead><tbody>${students.map(s => `<tr><td>${s.name}</td><td>${s.class}</td><td class="${s.feeStatus === 'paid' ? 'fee-paid' : 'fee-unpaid'}">${s.feeStatus === 'paid' ? '✅ Paid' : '❌ Unpaid'}</td><td>${s.canViewResults ? '✅ Can View' : '❌ Blocked'}</td><td class="action-buttons"><button onclick="window.toggleFee('${s.id}', '${s.feeStatus}')">Toggle Fee</button><button onclick="window.toggleAccess('${s.id}', ${s.canViewResults})">Toggle Access</button></td></tr>`).join('')}</tbody></table></div></div>`;
-        } else if (section === 'teacherSubjects') {
-            container.innerHTML = `<div class="card"><h3>Assign Subject to Teacher</h3><div class="grid-2"><select id="asTeacher"><option value="">-- Select Teacher --</option>${teachers.map(t => `<option value="${t.id}">${t.name}</option>`)}</select><select id="asSubject"><option value="">-- Select Subject --</option>${schoolData.subjects.map(s => `<option value="${s.id}">${s.name}</option>`)}</select><select id="asClass"><option value="">-- Select Class --</option>${schoolData.classes.flatMap(c => c.arms.map(arm => `<option value="${c.name} ${arm}">${c.name} ${arm}</option>`)).join('')}</select></div><button onclick="window.assignSubject()">Assign Subject</button></div>
-            <div class="card"><h3>Current Assignments</h3><div class="table-wrapper"><table><thead><tr><th>Teacher</th><th>Subject</th><th>Class</th><th>Action</th></tr></thead><tbody>${teacherSubjects.map(ts => { const t = teachers.find(t => t.id === ts.teacherId); const s = schoolData.subjects.find(s => s.id === ts.subjectId); return `<tr><td>${t?.name || 'Unknown'}</td><td>${s?.name || 'Unknown'}</td><td>${ts.class}</td><td><button onclick="window.removeTeacherSubject('${ts.id}')">Remove</button></td></tr>`; }).join('')}</tbody></table></div></div>`;
-        } else if (section === 'classes') {
-            container.innerHTML = `<div class="card"><h3>Manage Classes</h3><div class="grid-2"><input id="className" placeholder="Class Name (e.g., SS1, JSS3)"><input id="classArms" placeholder="Arms (comma separated: A,B,C)"></div><button onclick="window.addClass()">Add Class</button></div>
-            <div class="card"><h3>Classes & Arms</h3>${schoolData.classes.map(c => `<div style="background:white; padding:10px; margin-bottom:10px; border-radius:8px;"><strong>${c.name}</strong><br>Arms: ${c.arms.join(', ')}<br><button onclick="window.addArm('${c.id}')">➕ Add Arm</button> <button onclick="window.deleteClass('${c.id}')" style="background:#dc3545">🗑️ Delete Class</button></div>`).join('')}</div>`;
-        } else if (section === 'sessions') {
-            container.innerHTML = `<div class="card"><h3>📅 Add New Session</h3><div class="grid-2"><input id="newSessionYear" placeholder="Academic Year (e.g., 2025/2026)"><select id="newSessionTerm"><option>First Term</option><option>Second Term</option><option>Third Term</option></select></div><button onclick="window.addNewSession()">Add Session</button></div>
-            <div class="card"><h3>📜 Session History</h3>${sessions.length === 0 ? '<p>No sessions created yet.</p>' : `<div class="table-wrapper"><table><thead><tr><th>Academic Year</th><th>Term</th><th>Status</th><th>Action</th></tr></thead><tbody>${sessions.map(s => `<tr><td>${s.academicYear}</td><td>${s.term}</td><td>${s.isActive ? '✅ Active' : 'Inactive'}</td><td>${!s.isActive ? `<button onclick="window.setAsActive('${s.id}', '${s.academicYear}', '${s.term}')">Set as Active</button>` : 'Current'}</td></tr>`).join('')}</tbody></table></div>`}</div>`;
-        } else if (section === 'allResults') {
-            container.innerHTML = `<div class="card"><h3>📖 All Results (Edit/Withdraw)</h3><input id="searchRes" placeholder="Search by student name or subject..." onkeyup="window.searchResults()" style="margin-bottom:15px"><div class="table-wrapper"><div id="resTable"><table><thead><tr><th>Type</th><th>Student</th><th>Subject</th><th>Class</th><th>Scores</th><th>Total</th><th>Grade</th><th>Status</th><th>Actions</th></tr></thead><tbody>${results.map(r => `<tr><td><span class="result-type-badge ${r.resultType === 'midterm' ? 'result-type-midterm' : 'result-type-final'}">${r.resultType === 'midterm' ? 'Mid Term' : 'Final'}</span></td><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.resultType === 'midterm' ? `CA1:${r.ca1Score}, Proj:${r.projectScore}, Exam:${r.midExamScore}` : `CA:${r.caScore}, Exam:${r.examScore}`}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td><td class="${r.status === 'approved' ? 'status-approved' : r.status === 'pending' ? 'status-pending' : 'status-rejected'}">${r.status}</td><td class="action-buttons"><button onclick="window.editResultModal('${r.id}', '${r.resultType}', ${r.resultType === 'midterm' ? `{ca1:${r.ca1Score}, project:${r.projectScore}, midExam:${r.midExamScore}}` : `{ca:${r.caScore}, exam:${r.examScore}}`})">✏️ Edit</button> ${r.status === 'approved' ? `<button onclick="window.withdrawResult('${r.id}')">📤 Withdraw</button>` : ''}</td></tr>`).join('')}</tbody></table></div></div></div>`;
-        } else if (section === 'reports') {
-            const approved = results.filter(r => r.status === 'approved');
-            const classAvg = {};
-            students.forEach(s => { const stuRes = approved.filter(r => r.studentId === s.id); const avg = stuRes.length ? stuRes.reduce((a,b)=>a+b.total,0)/stuRes.length : 0; if(!classAvg[s.class]) classAvg[s.class] = { sum:0, count:0 }; classAvg[s.class].sum += avg; classAvg[s.class].count++; });
-            container.innerHTML = `<div class="card"><h3>📊 Class Performance Report</h3><div class="table-wrapper"><table><thead><tr><th>Class</th><th>Average Score</th><th>Number of Students</th><th>Performance Rating</th></tr></thead><tbody>${Object.entries(classAvg).map(([cn,st]) => { const avg = st.sum/st.count; let perf = avg >= 70 ? '🌟 Excellent' : avg >= 50 ? '✅ Good' : '⚠️ Fair'; return `<tr><td>${cn}</td><td>${avg.toFixed(1)}%</td><td>${st.count}</td><td>${perf}</td></tr>`; }).join('')}</tbody></table></div></div>
-            <div class="card"><h3>💰 Fee Defaulters List</h3><div class="table-wrapper"><table><thead><tr><th>Name</th><th>Admission No</th><th>Class</th><th>Parent Contact</th><th>Status</th></tr></thead><tbody>${students.filter(s => s.feeStatus !== 'paid').map(s => `<tr><td>${s.name}</td><td>${s.admissionNo}</td><td>${s.class}</td><td>${s.parentEmail || 'Not provided'}</td><td class="fee-unpaid">❌ Unpaid</td></tr>`).join('')}</tbody></table></div></div>`;
-        }
+        const cont = document.getElementById('adminContent');
+        if(!cont) return;
+        if(section==='dashboard'){ const act=sessions.find(s=>s.isActive)||{academicYear:'Not set',term:'No active session'}; cont.innerHTML=`<div class="active-session-banner">📅 <strong>Active Session:</strong> ${act.term} ${act.academicYear}</div><div class="card"><h3>Real-Time Dashboard</h3><p>All changes sync instantly across devices.</p></div>`; return; }
+        if(section==='users'){ cont.innerHTML=`<div class="card"><h3>👥 All User Accounts</h3><div class="table-wrapper"><table><thead><tr><th>Username</th><th>Name</th><th>Role</th><th>Email/ID</th><th>Action</th></tr></thead><tbody>${users.map(u=>`<tr><td>${u.username}</td><td>${u.name||'-'}</td><td>${u.role}</td><td>${u.email||u.admissionNo||'-'}</td><td>${u.role!=='admin'?`<button onclick="window.deleteUserAccount('${u.id}')">Delete</button>`:'Admin'}</td></tr>`).join('')}</tbody></table></div></div>`; return; }
+        if(section==='resultApproval'){ const pending=results.filter(r=>r.status==='pending'); cont.innerHTML=`<div class="card"><h3>✅ Pending Results (${pending.length})</h3>${pending.length===0?'<p>No pending results.</p>':`<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Student</th><th>Subject</th><th>Class</th><th>Scores</th><th>Total</th><th>Grade</th><th>Teacher</th><th>Actions</th></tr></thead><tbody>${pending.map(r=>`<tr><td><span class="result-type-badge ${r.resultType==='midterm'?'result-type-midterm':'result-type-final'}">${r.resultType==='midterm'?'Mid Term':'Final'}</span></td><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.resultType==='midterm'?`CA1:${r.ca1Score}, Proj:${r.projectScore}, Exam:${r.midExamScore}`:`CA:${r.caScore}, Exam:${r.examScore}`}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td><td>${r.teacher}</td><td class="action-buttons"><button onclick="window.approveResult('${r.id}')">Approve</button><button onclick="window.rejectResult('${r.id}')">Reject</button></td></tr>`).join('')}</tbody></table></div>`}</div>`; return; }
+        if(section==='teachers'){ cont.innerHTML=`<div class="card"><h3>➕ Add Teacher</h3><div class="grid-3"><input id="tName" placeholder="Full Name"><input id="tUser" placeholder="Username"><input id="tPass" type="password" placeholder="Password"><input id="tEmail" placeholder="Email"><input id="tPhone" placeholder="Phone"></div><button onclick="window.addTeacher()">Add Teacher</button></div><div class="card"><h3>All Teachers</h3><div class="table-wrapper"><table><thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead><tbody>${teachers.map(t=>`<tr><td>${t.name}</td><td>${t.username}</td><td>${t.email||'-'}</td><td>${t.phone||'-'}</td><td class="action-buttons"><button onclick="window.editTeacher('${t.id}')">✏️ Edit</button><button onclick="window.deleteTeacher('${t.id}')">🗑️ Delete</button></td></tr>`).join('')}</tbody></table></div></div>`; return; }
+        if(section==='students'){ cont.innerHTML=`<div class="card"><h3>➕ Add Student</h3><div class="grid-3"><input id="sName" placeholder="Full Name"><input id="sAdm" placeholder="Admission No"><select id="sClass">${schoolData.classes.flatMap(c=>c.arms.map(arm=>`<option value="${c.name} ${arm}">${c.name} ${arm}</option>`)).join('')}</select><input id="sParentEmail" placeholder="Parent Email"><input id="sUser" placeholder="Username"><input id="sPass" type="password" placeholder="Password"></div><button onclick="window.addStudent()">Add Student</button></div><div class="card"><h3>All Students</h3><div class="table-wrapper"><table><thead><tr><th>Admission</th><th>Name</th><th>Class</th><th>Fee</th><th>Access</th><th>Actions</th></tr></thead><tbody>${students.map(s=>`<tr><td>${s.admissionNo}</td><td>${s.name}</td><td>${s.class}</td><td class="${s.feeStatus==='paid'?'fee-paid':'fee-unpaid'}">${s.feeStatus}</td><td>${s.canViewResults?'✅ Allowed':'❌ Blocked'}</td><td class="action-buttons"><button onclick="window.editStudent('${s.id}')">✏️ Edit</button><button onclick="window.deleteStudent('${s.id}')">🗑️ Delete</button></td></tr>`).join('')}</tbody></table></div></div>`; return; }
+        if(section==='subjects'){ cont.innerHTML=`<div class="card"><h3>➕ Add Subject</h3><div class="grid-2"><input id="subjName" placeholder="Subject Name"><input id="subjCode" placeholder="Subject Code"><select id="subjCat"><option>Core</option><option>Science</option><option>Commercial</option><option>Arts</option><option>Elective</option></select></div><button onclick="window.addSubject()">Add Subject</button></div><div class="card"><h3>All Subjects</h3><div class="table-wrapper"><table><thead><tr><th>Code</th><th>Name</th><th>Category</th><th>Actions</th></tr></thead><tbody>${schoolData.subjects.map(s=>`<tr><td>${s.code}</td><td>${s.name}</td><td>${s.category}</td><td class="action-buttons"><button onclick="window.editSubject('${s.id}')">✏️ Edit</button><button onclick="window.deleteSubject('${s.id}')">🗑️ Delete</button></td></tr>`).join('')}</tbody></table></div></div>`; return; }
+        if(section==='feeManagement'){ cont.innerHTML=`<div class="card"><h3>💰 Fee Management</h3><div class="table-wrapper"><table><thead><tr><th>Student</th><th>Class</th><th>Fee Status</th><th>Result Access</th><th>Actions</th></tr></thead><tbody>${students.map(s=>`<tr><td>${s.name}</td><td>${s.class}</td><td class="${s.feeStatus==='paid'?'fee-paid':'fee-unpaid'}">${s.feeStatus==='paid'?'✅ Paid':'❌ Unpaid'}</td><td>${s.canViewResults?'✅ Can View':'❌ Blocked'}</td><td class="action-buttons"><button onclick="window.toggleFee('${s.id}','${s.feeStatus}')">Toggle Fee</button><button onclick="window.toggleAccess('${s.id}',${s.canViewResults})">Toggle Access</button></td></tr>`).join('')}</tbody></table></div></div>`; return; }
+        if(section==='teacherSubjects'){ cont.innerHTML=`<div class="card"><h3>Assign Subject to Teacher</h3><div class="grid-2"><select id="asTeacher"><option value="">-- Select Teacher --</option>${teachers.map(t=>`<option value="${t.id}">${t.name}</option>`)}</select><select id="asSubject"><option value="">-- Select Subject --</option>${schoolData.subjects.map(s=>`<option value="${s.id}">${s.name}</option>`)}</select><select id="asClass"><option value="">-- Select Class --</option>${schoolData.classes.flatMap(c=>c.arms.map(arm=>`<option value="${c.name} ${arm}">${c.name} ${arm}</option>`)).join('')}</select></div><button onclick="window.assignSubject()">Assign Subject</button></div><div class="card"><h3>Current Assignments</h3><div class="table-wrapper"><table><thead><tr><th>Teacher</th><th>Subject</th><th>Class</th><th>Action</th></tr></thead><tbody>${teacherSubjects.map(ts=>{const t=teachers.find(t=>t.id===ts.teacherId);const s=schoolData.subjects.find(s=>s.id===ts.subjectId);return `<tr><td>${t?.name||'Unknown'}</td><td>${s?.name||'Unknown'}</td><td>${ts.class}</td><td><button onclick="window.removeTeacherSubject('${ts.id}')">Remove</button></td></tr>`;}).join('')}</tbody></table></div></div>`; return; }
+        if(section==='classes'){ cont.innerHTML=`<div class="card"><h3>Manage Classes</h3><div class="grid-2"><input id="className" placeholder="Class Name (e.g., SS1, JSS3)"><input id="classArms" placeholder="Arms (comma separated: A,B,C)"></div><button onclick="window.addClass()">Add Class</button></div><div class="card"><h3>Classes & Arms</h3>${schoolData.classes.map(c=>`<div style="background:white; padding:12px; margin-bottom:12px; border-radius:8px; border:1px solid #ddd;"><strong>${c.name}</strong><br>Arms: ${c.arms.join(', ')}<br><button onclick="window.addArm('${c.id}')">➕ Add Arm</button> <button onclick="window.deleteClass('${c.id}')" style="background:#dc3545">🗑️ Delete Class</button></div>`).join('')}</div>`; return; }
+        if(section==='sessions'){ cont.innerHTML=`<div class="card"><h3>📅 Add New Session</h3><div class="grid-2"><input id="newSessionYear" placeholder="Academic Year (e.g., 2025/2026)"><select id="newSessionTerm"><option>First Term</option><option>Second Term</option><option>Third Term</option></select></div><button onclick="window.addNewSession()">Add Session</button></div><div class="card"><h3>📜 Session History</h3>${sessions.length===0?'<p>No sessions yet.</p>':`<div class="table-wrapper"><table><thead><tr><th>Academic Year</th><th>Term</th><th>Status</th><th>Action</th></tr></thead><tbody>${sessions.map(s=>`<tr><td>${s.academicYear}</td><td>${s.term}</td><td>${s.isActive?'✅ Active':'Inactive'}</td><td>${!s.isActive?`<button onclick="window.setAsActive('${s.id}','${s.academicYear}','${s.term}')">Set as Active</button>`:'Current'}</td></tr>`).join('')}</tbody></table></div>`}</div>`; return; }
+        if(section==='allResults'){ cont.innerHTML=`<div class="card"><h3>📖 All Results (Edit/Withdraw)</h3><input id="searchRes" placeholder="Search by student name or subject..." onkeyup="window.searchResults()" style="margin-bottom:15px"><div class="table-wrapper"><div id="resTable"><table><thead><tr><th>Type</th><th>Student</th><th>Subject</th><th>Class</th><th>Scores</th><th>Total</th><th>Grade</th><th>Status</th><th>Actions</th></tr></thead><tbody>${results.map(r=>`<tr><td><span class="result-type-badge ${r.resultType==='midterm'?'result-type-midterm':'result-type-final'}">${r.resultType==='midterm'?'Mid Term':'Final'}</span></td><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.resultType==='midterm'?`CA1:${r.ca1Score}, Proj:${r.projectScore}, Exam:${r.midExamScore}`:`CA:${r.caScore}, Exam:${r.examScore}`}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td><td class="${r.status==='approved'?'status-approved':r.status==='pending'?'status-pending':'status-rejected'}">${r.status}</td><td class="action-buttons"><button onclick="window.editResultModal('${r.id}','${r.resultType}',${r.resultType==='midterm'?`{ca1:${r.ca1Score},project:${r.projectScore},midExam:${r.midExamScore}}`:`{ca:${r.caScore},exam:${r.examScore}}`})">✏️ Edit</button> ${r.status==='approved'?`<button onclick="window.withdrawResult('${r.id}')">📤 Withdraw</button>`:''}</td></tr>`).join('')}</tbody></table></div></div></div>`; return; }
+        if(section==='reports'){ const approved=results.filter(r=>r.status==='approved'); const classAvg={}; students.forEach(s=>{const stuRes=approved.filter(r=>r.studentId===s.id); const avg=stuRes.length?stuRes.reduce((a,b)=>a+b.total,0)/stuRes.length:0; if(!classAvg[s.class]) classAvg[s.class]={sum:0,count:0}; classAvg[s.class].sum+=avg; classAvg[s.class].count++;}); cont.innerHTML=`<div class="card"><h3>📊 Class Performance Report</h3><div class="table-wrapper"><table><thead><tr><th>Class</th><th>Average Score</th><th>Students</th><th>Performance</th></tr></thead><tbody>${Object.entries(classAvg).map(([cn,st])=>{const avg=st.sum/st.count; let perf=avg>=70?'🌟 Excellent':avg>=50?'✅ Good':'⚠️ Fair'; return `<tr><td>${cn}</td><td>${avg.toFixed(1)}%</td><td>${st.count}</td><td>${perf}</td></tr>`;}).join('')}</tbody></table></div></div><div class="card"><h3>💰 Fee Defaulters List</h3><div class="table-wrapper"><table><thead><tr><th>Name</th><th>Admission</th><th>Class</th><th>Parent Contact</th><th>Status</th></tr></thead><tbody>${students.filter(s=>s.feeStatus!=='paid').map(s=>`<tr><td>${s.name}</td><td>${s.admissionNo}</td><td>${s.class}</td><td>${s.parentEmail||'Not provided'}</td><td class="fee-unpaid">❌ Unpaid</td></tr>`).join('')}</tbody></table></div></div>`; return; }
     };
 
-    // Edit handlers (FIXED - using window.showModal)
-    window.editTeacher = function(teacherId) {
-        const teacher = teachers.find(t => t.id === teacherId);
-        if (!teacher) return;
-        window.showModal('Edit Teacher', `
-            <label>Full Name</label><input type="text" id="editName" value="${teacher.name.replace(/'/g, "\\'")}">
-            <label>Username</label><input type="text" id="editUsername" value="${teacher.username.replace(/'/g, "\\'")}">
-            <label>New Password</label><input type="password" id="editPassword" placeholder="Leave blank to keep current">
-            <label>Email</label><input type="email" id="editEmail" value="${(teacher.email || '').replace(/'/g, "\\'")}">
-            <label>Phone</label><input type="text" id="editPhone" value="${(teacher.phone || '').replace(/'/g, "\\'")}">
-        `, async () => {
-            const newName = document.getElementById('editName').value.trim();
-            const newUsername = document.getElementById('editUsername').value.trim();
-            const newPassword = document.getElementById('editPassword').value.trim();
-            const newEmail = document.getElementById('editEmail').value.trim();
-            const newPhone = document.getElementById('editPhone').value.trim();
-            if (!newName || !newUsername) { alert('Name and Username are required'); return; }
-            // Update teacher record
-            const teacherUpdate = { name: newName, email: newEmail, phone: newPhone };
-            if (newUsername !== teacher.username) teacherUpdate.username = newUsername;
-            await updateDoc(doc(db, "teachers", teacherId), teacherUpdate);
-            // Update user record
-            const q = query(collection(db, "users"), where("username", "==", teacher.username), where("role", "==", "teacher"));
-            const userSnap = await getDocs(q);
-            for (const uDoc of userSnap.docs) {
-                const userUpdate = { name: newName, email: newEmail, phone: newPhone };
-                if (newUsername !== teacher.username) userUpdate.username = newUsername;
-                if (newPassword) userUpdate.password = newPassword;
-                await updateDoc(doc(db, "users", uDoc.id), userUpdate);
-            }
-            showAdminSection('teachers');
-            alert('Teacher updated successfully!');
-        });
-    };
-    window.editStudent = function(studentId) {
-        const student = students.find(s => s.id === studentId);
-        if (!student) return;
-        window.showModal('Edit Student', `
-            <label>Full Name</label><input type="text" id="editName" value="${student.name.replace(/'/g, "\\'")}">
-            <label>Admission Number</label><input type="text" id="editAdm" value="${student.admissionNo.replace(/'/g, "\\'")}">
-            <label>Username</label><input type="text" id="editUsername" value="${student.username.replace(/'/g, "\\'")}">
-            <label>New Password</label><input type="password" id="editPassword" placeholder="Leave blank to keep current">
-            <label>Parent Email</label><input type="email" id="editEmail" value="${(student.parentEmail || '').replace(/'/g, "\\'")}">
-        `, async () => {
-            const newName = document.getElementById('editName').value.trim();
-            const newAdm = document.getElementById('editAdm').value.trim();
-            const newUsername = document.getElementById('editUsername').value.trim();
-            const newPassword = document.getElementById('editPassword').value.trim();
-            const newEmail = document.getElementById('editEmail').value.trim();
-            if (!newName || !newAdm || !newUsername) { alert('Name, Admission Number, and Username are required'); return; }
-            // Update student record
-            const studentUpdate = { name: newName, admissionNo: newAdm, parentEmail: newEmail };
-            if (newUsername !== student.username) studentUpdate.username = newUsername;
-            await updateDoc(doc(db, "students", studentId), studentUpdate);
-            // Update user record
-            const q = query(collection(db, "users"), where("username", "==", student.username), where("role", "==", "student"));
-            const userSnap = await getDocs(q);
-            for (const uDoc of userSnap.docs) {
-                const userUpdate = { name: newName, admissionNo: newAdm };
-                if (newUsername !== student.username) userUpdate.username = newUsername;
-                if (newPassword) userUpdate.password = newPassword;
-                await updateDoc(doc(db, "users", uDoc.id), userUpdate);
-            }
-            showAdminSection('students');
-            alert('Student updated successfully!');
-        });
-    };
-    window.editSubject = function(subjectId) {
-        const subject = schoolData.subjects.find(s => s.id === subjectId);
-        if (!subject) return;
-        window.showModal('Edit Subject', `
-            <label>Subject Name</label><input type="text" id="editName" value="${subject.name.replace(/'/g, "\\'")}">
-            <label>Subject Code</label><input type="text" id="editCode" value="${subject.code.replace(/'/g, "\\'")}">
-            <label>Category</label><select id="editCat">${['Core','Science','Commercial','Arts','Elective'].map(cat => `<option value="${cat}" ${subject.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}</select>
-        `, async () => {
-            const newName = document.getElementById('editName').value.trim();
-            const newCode = document.getElementById('editCode').value.trim();
-            const newCat = document.getElementById('editCat').value;
-            if (newName && newCode) {
-                await updateSubject(subjectId, newName, newCode, newCat);
-                showAdminSection('subjects');
-                alert('Subject updated successfully!');
-            }
-        });
-    };
-    window.editResultModal = function(resultId, resultType, scores) {
-        let bodyHtml = '';
-        if (resultType === 'midterm') {
-            bodyHtml = `<label>CA1 Score (0-10)</label><input type="number" id="editCa1" min="0" max="10" value="${scores.ca1}">
-                        <label>Project Score (0-10)</label><input type="number" id="editProject" min="0" max="10" value="${scores.project}">
-                        <label>Mid Exam Score (0-30)</label><input type="number" id="editMidExam" min="0" max="30" value="${scores.midExam}">`;
-        } else {
-            bodyHtml = `<label>CA Score (0-40)</label><input type="number" id="editCa" min="0" max="40" value="${scores.ca}">
-                        <label>Exam Score (0-60)</label><input type="number" id="editExam" min="0" max="60" value="${scores.exam}">`;
-        }
-        window.showModal('Edit Result (will become pending for re-approval)', bodyHtml, async () => {
-            if (resultType === 'midterm') {
-                const ca1 = parseInt(document.getElementById('editCa1').value);
-                const project = parseInt(document.getElementById('editProject').value);
-                const midExam = parseInt(document.getElementById('editMidExam').value);
-                if (isNaN(ca1) || isNaN(project) || isNaN(midExam) || ca1<0 || ca1>10 || project<0 || project>10 || midExam<0 || midExam>30) {
-                    alert('Invalid scores: CA1 0-10, Project 0-10, Mid Exam 0-30');
-                    return;
-                }
-                await editResult(resultId, { ca1, project, midExam }, 'midterm');
-            } else {
-                const ca = parseInt(document.getElementById('editCa').value);
-                const exam = parseInt(document.getElementById('editExam').value);
-                if (isNaN(ca) || isNaN(exam) || ca<0 || ca>40 || exam<0 || exam>60) {
-                    alert('Invalid scores: CA 0-40, Exam 0-60');
-                    return;
-                }
-                await editResult(resultId, { ca, exam }, 'final');
-            }
-            showAdminSection('allResults');
-            alert('Result updated and set to pending for re-approval!');
-        });
-    };
-    window.withdrawResult = async function(resultId) {
-        if (confirm('Withdraw this approved result? It will become pending and require re-approval before students can see it again.')) {
-            await updateDoc(doc(db, "results", resultId), { status: 'pending' });
-            showAdminSection('allResults');
-            alert('Result withdrawn and set to pending!');
-        }
-    };
+    // ========== EDIT HANDLERS (all work) ==========
+    window.editTeacher = function(id) { const t=teachers.find(t=>t.id===id); if(!t) return; window.showModal('Edit Teacher',`<label>Full Name</label><input type="text" id="editName" value="${t.name.replace(/'/g,"\\'")}"><label>Username</label><input type="text" id="editUsername" value="${t.username.replace(/'/g,"\\'")}"><label>New Password</label><input type="password" id="editPassword" placeholder="Leave blank to keep current"><label>Email</label><input type="email" id="editEmail" value="${(t.email||'').replace(/'/g,"\\'")}"><label>Phone</label><input type="text" id="editPhone" value="${(t.phone||'').replace(/'/g,"\\'")}">`, async()=>{ const n=document.getElementById('editName').value.trim(), u=document.getElementById('editUsername').value.trim(), p=document.getElementById('editPassword').value.trim(), e=document.getElementById('editEmail').value.trim(), ph=document.getElementById('editPhone').value.trim(); if(!n||!u) { alert('Name and Username required'); return; } const upd={name:n,email:e,phone:ph}; if(u!==t.username) upd.username=u; await updateDoc(doc(db,"teachers",id),upd); const q=query(collection(db,"users"),where("username","==",t.username),where("role","==","teacher")); (await getDocs(q)).forEach(async ud=>{ const uup={name:n,email:e,phone:ph}; if(u!==t.username) uup.username=u; if(p) uup.password=p; await updateDoc(doc(db,"users",ud.id),uup); }); showAdminSection('teachers'); alert('Teacher updated!'); }); };
+    window.editStudent = function(id) { const s=students.find(s=>s.id===id); if(!s) return; window.showModal('Edit Student',`<label>Full Name</label><input type="text" id="editName" value="${s.name.replace(/'/g,"\\'")}"><label>Admission Number</label><input type="text" id="editAdm" value="${s.admissionNo.replace(/'/g,"\\'")}"><label>Username</label><input type="text" id="editUsername" value="${s.username.replace(/'/g,"\\'")}"><label>New Password</label><input type="password" id="editPassword" placeholder="Leave blank to keep current"><label>Parent Email</label><input type="email" id="editEmail" value="${(s.parentEmail||'').replace(/'/g,"\\'")}">`, async()=>{ const n=document.getElementById('editName').value.trim(), a=document.getElementById('editAdm').value.trim(), u=document.getElementById('editUsername').value.trim(), p=document.getElementById('editPassword').value.trim(), e=document.getElementById('editEmail').value.trim(); if(!n||!a||!u) { alert('Name, Admission, Username required'); return; } const upd={name:n,admissionNo:a,parentEmail:e}; if(u!==s.username) upd.username=u; await updateDoc(doc(db,"students",id),upd); const q=query(collection(db,"users"),where("username","==",s.username),where("role","==","student")); (await getDocs(q)).forEach(async ud=>{ const uup={name:n,admissionNo:a}; if(u!==s.username) uup.username=u; if(p) uup.password=p; await updateDoc(doc(db,"users",ud.id),uup); }); showAdminSection('students'); alert('Student updated!'); }); };
+    window.editSubject = function(id) { const sub=schoolData.subjects.find(s=>s.id===id); if(!sub) return; window.showModal('Edit Subject',`<label>Subject Name</label><input type="text" id="editName" value="${sub.name.replace(/'/g,"\\'")}"><label>Code</label><input type="text" id="editCode" value="${sub.code.replace(/'/g,"\\'")}"><label>Category</label><select id="editCat">${['Core','Science','Commercial','Arts','Elective'].map(c=>`<option value="${c}" ${sub.category===c?'selected':''}>${c}</option>`).join('')}</select>`, async()=>{ const n=document.getElementById('editName').value.trim(), c=document.getElementById('editCode').value.trim(), cat=document.getElementById('editCat').value; if(n&&c){ await updateSubject(id,n,c,cat); showAdminSection('subjects'); alert('Subject updated!'); } }); };
+    window.editResultModal = function(id,type,scores){ let body=''; if(type==='midterm') body=`<label>CA1 (0-10)</label><input type="number" id="editCa1" min="0" max="10" value="${scores.ca1}"><label>Project (0-10)</label><input type="number" id="editProject" min="0" max="10" value="${scores.project}"><label>Mid Exam (0-30)</label><input type="number" id="editMidExam" min="0" max="30" value="${scores.midExam}">`; else body=`<label>CA (0-40)</label><input type="number" id="editCa" min="0" max="40" value="${scores.ca}"><label>Exam (0-60)</label><input type="number" id="editExam" min="0" max="60" value="${scores.exam}">`; window.showModal('Edit Result (will become pending)',body,async()=>{ if(type==='midterm'){ const ca1=parseInt(document.getElementById('editCa1').value), proj=parseInt(document.getElementById('editProject').value), mid=parseInt(document.getElementById('editMidExam').value); if(isNaN(ca1)||isNaN(proj)||isNaN(mid)||ca1<0||ca1>10||proj<0||proj>10||mid<0||mid>30){ alert('Invalid scores'); return; } await editResult(id,{ca1,project:proj,midExam:mid},'midterm'); } else { const ca=parseInt(document.getElementById('editCa').value), ex=parseInt(document.getElementById('editExam').value); if(isNaN(ca)||isNaN(ex)||ca<0||ca>40||ex<0||ex>60){ alert('Invalid scores'); return; } await editResult(id,{ca,exam:ex},'final'); } showAdminSection('allResults'); alert('Result updated and pending re-approval.'); }); };
+    window.withdrawResult = async function(id){ if(confirm('Withdraw this approved result? It will become pending.')){ await updateDoc(doc(db,"results",id),{status:'pending'}); showAdminSection('allResults'); alert('Result withdrawn.'); } };
 
     // Admin action handlers
-    window.addTeacher = async () => { const name=document.getElementById('tName')?.value.trim(), user=document.getElementById('tUser')?.value.trim(), pass=document.getElementById('tPass')?.value.trim(); if(name&&user&&pass) { await addTeacher({ name, username: user, password: pass, email: document.getElementById('tEmail')?.value.trim(), phone: document.getElementById('tPhone')?.value.trim() }); showAdminSection('teachers'); alert(`Teacher "${name}" added successfully! Username: ${user}`); } else alert('Please fill all required fields (Name, Username, Password)'); };
-    window.deleteTeacher = async (id) => { if(confirm('Delete this teacher? This will also delete their user account and subject assignments.')) await deleteTeacher(id); showAdminSection('teachers'); };
-    window.addStudent = async () => { const name=document.getElementById('sName')?.value.trim(), adm=document.getElementById('sAdm')?.value.trim(), cls=document.getElementById('sClass')?.value, user=document.getElementById('sUser')?.value.trim(), pass=document.getElementById('sPass')?.value.trim(); if(name&&adm&&cls&&user&&pass) { await addStudent({ name, admissionNo: adm, class: cls, username: user, password: pass, parentEmail: document.getElementById('sParentEmail')?.value.trim(), feeStatus: 'unpaid', canViewResults: false }); showAdminSection('students'); alert(`Student "${name}" added successfully! Username: ${user}`); } else alert('Please fill all required fields (Name, Admission, Class, Username, Password)'); };
-    window.deleteStudent = async (id) => { if(confirm('Delete this student? This will also delete their user account and all results.')) await deleteStudent(id); showAdminSection('students'); };
-    window.toggleFee = async (id, status) => { await toggleFee(id, status); showAdminSection('feeManagement'); };
-    window.toggleAccess = async (id, curr) => { await toggleAccess(id, curr); showAdminSection('feeManagement'); };
-    window.approveResult = async (id) => { await approveResult(id); showAdminSection('resultApproval'); alert('Result approved! Student can now view it.'); };
+    window.addTeacher = async () => { const n=document.getElementById('tName')?.value.trim(), u=document.getElementById('tUser')?.value.trim(), p=document.getElementById('tPass')?.value.trim(); if(n&&u&&p){ await addTeacher({name:n,username:u,password:p,email:document.getElementById('tEmail')?.value.trim(),phone:document.getElementById('tPhone')?.value.trim()}); showAdminSection('teachers'); alert(`Teacher "${n}" added! Username: ${u}`); } else alert('Fill required fields'); };
+    window.deleteTeacher = async (id) => { if(confirm('Delete teacher?')) await deleteTeacher(id); showAdminSection('teachers'); };
+    window.addStudent = async () => { const n=document.getElementById('sName')?.value.trim(), a=document.getElementById('sAdm')?.value.trim(), c=document.getElementById('sClass')?.value, u=document.getElementById('sUser')?.value.trim(), p=document.getElementById('sPass')?.value.trim(); if(n&&a&&c&&u&&p){ await addStudent({name:n,admissionNo:a,class:c,username:u,password:p,parentEmail:document.getElementById('sParentEmail')?.value.trim(),feeStatus:'unpaid',canViewResults:false}); showAdminSection('students'); alert(`Student "${n}" added! Username: ${u}`); } else alert('Fill required fields'); };
+    window.deleteStudent = async (id) => { if(confirm('Delete student?')) await deleteStudent(id); showAdminSection('students'); };
+    window.toggleFee = async (id,status) => { await toggleFee(id,status); showAdminSection('feeManagement'); };
+    window.toggleAccess = async (id,curr) => { await toggleAccess(id,curr); showAdminSection('feeManagement'); };
+    window.approveResult = async (id) => { await approveResult(id); showAdminSection('resultApproval'); alert('Result approved!'); };
     window.rejectResult = async (id) => { await rejectResult(id); showAdminSection('resultApproval'); alert('Result rejected!'); };
-    window.addSubject = async () => { const name=document.getElementById('subjName')?.value.trim(), code=document.getElementById('subjCode')?.value.trim(), cat=document.getElementById('subjCat')?.value; if(name&&code) { await addSubject({ id: 'subj_'+Date.now(), name, code, category: cat }); showAdminSection('subjects'); alert(`Subject "${name}" added!`); } else alert('Subject Name and Code are required'); };
-    window.deleteSubject = async (id) => { if(confirm('Delete this subject? This will affect all assignments and results.')) await deleteSubject(id); showAdminSection('subjects'); };
-    window.addClass = async () => { const name=document.getElementById('className')?.value.trim(), arms=document.getElementById('classArms')?.value; if(name&&arms) { await addClass({ id: 'class_'+Date.now(), name, arms: arms.split(',').map(a=>a.trim()) }); showAdminSection('classes'); alert(`Class "${name}" added!`); } else alert('Class Name and Arms are required'); };
-    window.deleteClass = async (id) => { if(confirm('Delete this class? This will affect all students and assignments.')) await deleteClass(id); showAdminSection('classes'); };
-    window.addArm = async (id) => { const arm=prompt('Enter new arm name (e.g., C, D, Science)'); if(arm && arm.trim()) await addArmToClass(id, arm.trim()); showAdminSection('classes'); };
-    window.assignSubject = async () => { const tid=document.getElementById('asTeacher')?.value, sid=document.getElementById('asSubject')?.value, cls=document.getElementById('asClass')?.value; if(tid&&sid&&cls) { await assignSubject(tid, sid, cls); showAdminSection('teacherSubjects'); alert('Subject assigned to teacher successfully!'); } else alert('Please select Teacher, Subject, and Class'); };
-    window.removeTeacherSubject = async (id) => { if(confirm('Remove this subject assignment?')) await removeTeacherSubject(id); showAdminSection('teacherSubjects'); };
-    window.addNewSession = async () => { const year = document.getElementById('newSessionYear')?.value.trim(); const term = document.getElementById('newSessionTerm')?.value; if(!year) { alert('Enter academic year (e.g., 2025/2026)'); return; } const exists = sessions.find(s => s.academicYear === year && s.term === term); if(exists) { alert('Session already exists! You can set it as active from the list.'); return; } await addDoc(collection(db, "sessions"), { academicYear: year, term, isActive: false }); showAdminSection('sessions'); alert(`Session ${term} ${year} added!`); };
-    window.setAsActive = async function(sessionId, year, term) { if(confirm(`Set ${term} ${year} as the active session? Previous active session will become inactive.`)) { for(let s of sessions) { await updateDoc(doc(db, "sessions", s.id), { isActive: false }); } await updateDoc(doc(db, "sessions", sessionId), { isActive: true }); showAdminSection('sessions'); alert(`Now active: ${term} ${year}`); } };
-    window.searchResults = () => { const term = document.getElementById('searchRes')?.value.toLowerCase(); if(term && document.getElementById('resTable')) { const filtered = results.filter(r => r.studentName.toLowerCase().includes(term) || r.subject.toLowerCase().includes(term)); document.getElementById('resTable').innerHTML = `<tr><thead><tr><th>Type</th><th>Student</th><th>Subject</th><th>Class</th><th>Scores</th><th>Total</th><th>Grade</th><th>Status</th><th>Actions</th></tr></thead><tbody>${filtered.map(r => `<tr><td><span class="result-type-badge ${r.resultType === 'midterm' ? 'result-type-midterm' : 'result-type-final'}">${r.resultType === 'midterm' ? 'Mid Term' : 'Final'}</span></td><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.resultType === 'midterm' ? `CA1:${r.ca1Score}, Proj:${r.projectScore}, Exam:${r.midExamScore}` : `CA:${r.caScore}, Exam:${r.examScore}`}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td><td class="${r.status}">${r.status}</td><td class="action-buttons"><button onclick="window.editResultModal('${r.id}', '${r.resultType}', ${r.resultType === 'midterm' ? `{ca1:${r.ca1Score}, project:${r.projectScore}, midExam:${r.midExamScore}}` : `{ca:${r.caScore}, exam:${r.examScore}}`})">✏️ Edit</button> ${r.status === 'approved' ? `<button onclick="window.withdrawResult('${r.id}')">📤 Withdraw</button>` : ''}</td></tr>`).join('')}</tbody></table>`; } };
-    window.deleteUserAccount = async (userId) => { if(confirm('Delete this user account? This will also delete all associated data (teacher/student record and results).')) { const user=users.find(u=>u.id===userId); if(user&&user.role==='teacher') { const teacher=teachers.find(t=>t.username===user.username); if(teacher) await deleteTeacher(teacher.id); } else if(user&&user.role==='student') { const student=students.find(s=>s.username===user.username); if(student) await deleteStudent(student.id); } else { await deleteDoc(doc(db,"users",userId)); } showAdminSection('users'); alert('User deleted successfully!'); } };
-    window.showChangePassword = () => { document.getElementById('adminContent').innerHTML = `<div class="card"><h3>🔐 Change Admin Password</h3><div id="pwdAlert"></div><div class="form-group"><label>Current Password</label><input type="password" id="currentPassword" placeholder="Enter current password"></div><div class="form-group"><label>New Password</label><input type="password" id="newPassword" placeholder="Enter new password (min 4 characters)"></div><div class="form-group"><label>Confirm New Password</label><input type="password" id="confirmPassword" placeholder="Confirm new password"></div><button onclick="window.updateAdminPassword()">Update Password</button></div>`; };
-    window.updateAdminPassword = async () => { const old=document.getElementById('currentPassword')?.value.trim(), newp=document.getElementById('newPassword')?.value.trim(), conf=document.getElementById('confirmPassword')?.value.trim(); if(!currentUser||currentUser.role!=='admin'){showAlert('pwdAlert','Not authorized','error');return;} const adminUser=users.find(u=>u.id===currentUser.id); if(adminUser.password!==old){showAlert('pwdAlert','Current password is incorrect','error');return;} if(!newp||newp.length<4){showAlert('pwdAlert','New password must be at least 4 characters','error');return;} if(newp!==conf){showAlert('pwdAlert','Passwords do not match','error');return;} await updateDoc(doc(db, "users", currentUser.id), { password: newp }); showAlert('pwdAlert','Password changed successfully! Please login again.','success'); setTimeout(()=>logout(),1500); };
-    window.showUploadLogo = () => { document.getElementById('adminContent').innerHTML = `<div class="card"><h3>🏫 Upload School Logo</h3><div id="logoAlert"></div><div class="logo-upload-preview" id="logoPreview"><span>🏫</span></div><div class="form-group"><label>Select Logo Image (PNG, JPG, GIF)</label><input type="file" id="logoFile" accept="image/*"></div><button onclick="window.uploadLogo()">Upload Logo</button><button onclick="window.removeLogo()" style="background: #dc3545; margin-left: 10px;">Remove Logo</button><div class="alert alert-info" style="margin-top: 15px;">Logo appears in the header for all users.</div></div>`; const input=document.getElementById('logoFile'); if(input) input.onchange=(e)=>{const file=e.target.files[0]; if(file){const reader=new FileReader(); reader.onload=(ev)=>{const prev=document.getElementById('logoPreview'); if(prev) prev.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`;}; reader.readAsDataURL(file);}}; };
-    window.uploadLogo = async () => { const file=document.getElementById('logoFile')?.files[0]; if(file){const reader=new FileReader(); reader.onload=async(e)=>{await updateDoc(doc(db,"portal","schoolData"),{schoolLogo:e.target.result}); showAlert('logoAlert','Logo uploaded successfully!','success'); setTimeout(()=>showAdminSection('dashboard'),1000);}; reader.readAsDataURL(file);} else { alert('Please select an image file first.'); } };
-    window.removeLogo = async () => { if(confirm('Remove the school logo?')) { await updateDoc(doc(db,"portal","schoolData"),{schoolLogo:null}); showAlert('logoAlert','Logo removed','success'); setTimeout(()=>showAdminSection('dashboard'),1000); } };
+    window.addSubject = async () => { const n=document.getElementById('subjName')?.value.trim(), c=document.getElementById('subjCode')?.value.trim(), cat=document.getElementById('subjCat')?.value; if(n&&c){ await addSubject({id:'subj_'+Date.now(),name:n,code:c,category:cat}); showAdminSection('subjects'); alert(`Subject "${n}" added!`); } else alert('Subject Name and Code required'); };
+    window.deleteSubject = async (id) => { if(confirm('Delete subject?')) await deleteSubject(id); showAdminSection('subjects'); };
+    window.addClass = async () => { const n=document.getElementById('className')?.value.trim(), arms=document.getElementById('classArms')?.value; if(n&&arms){ await addClass({id:'class_'+Date.now(),name:n,arms:arms.split(',').map(a=>a.trim())}); showAdminSection('classes'); alert(`Class "${n}" added!`); } else alert('Class Name and Arms required'); };
+    window.deleteClass = async (id) => { if(confirm('Delete class?')) await deleteClass(id); showAdminSection('classes'); };
+    window.addArm = async (id) => { const arm=prompt('Enter new arm name'); if(arm&&arm.trim()) await addArmToClass(id,arm.trim()); showAdminSection('classes'); };
+    window.assignSubject = async () => { const tid=document.getElementById('asTeacher')?.value, sid=document.getElementById('asSubject')?.value, cls=document.getElementById('asClass')?.value; if(tid&&sid&&cls){ await assignSubject(tid,sid,cls); showAdminSection('teacherSubjects'); alert('Subject assigned!'); } else alert('Select Teacher, Subject, Class'); };
+    window.removeTeacherSubject = async (id) => { if(confirm('Remove assignment?')) await removeTeacherSubject(id); showAdminSection('teacherSubjects'); };
+    window.addNewSession = async () => { const y=document.getElementById('newSessionYear')?.value.trim(), t=document.getElementById('newSessionTerm')?.value; if(!y){ alert('Enter academic year'); return; } const exists=sessions.find(s=>s.academicYear===y && s.term===t); if(exists){ alert('Session exists! Use "Set as Active".'); return; } await addDoc(collection(db,"sessions"),{academicYear:y,term:t,isActive:false}); showAdminSection('sessions'); alert(`Session ${t} ${y} added!`); };
+    window.setAsActive = async (id,y,t) => { if(confirm(`Set ${t} ${y} as active?`)){ for(let s of sessions) await updateDoc(doc(db,"sessions",s.id),{isActive:false}); await updateDoc(doc(db,"sessions",id),{isActive:true}); showAdminSection('sessions'); alert(`Now active: ${t} ${y}`); } };
+    window.searchResults = () => { const term=document.getElementById('searchRes')?.value.toLowerCase(); if(term&&document.getElementById('resTable')){ const filtered=results.filter(r=>r.studentName.toLowerCase().includes(term)||r.subject.toLowerCase().includes(term)); document.getElementById('resTable').innerHTML=`<table><thead><tr><th>Type</th><th>Student</th><th>Subject</th><th>Class</th><th>Scores</th><th>Total</th><th>Grade</th><th>Status</th><th>Actions</th></tr></thead><tbody>${filtered.map(r=>`<tr><td><span class="result-type-badge ${r.resultType==='midterm'?'result-type-midterm':'result-type-final'}">${r.resultType==='midterm'?'Mid Term':'Final'}</span></td><td>${r.studentName}</td><td>${r.subject}</td><td>${r.class}</td><td>${r.resultType==='midterm'?`CA1:${r.ca1Score}, Proj:${r.projectScore}, Exam:${r.midExamScore}`:`CA:${r.caScore}, Exam:${r.examScore}`}</td><td><strong>${r.total}</strong></td><td>${r.grade}</td><td class="${r.status}">${r.status}</td><td class="action-buttons"><button onclick="window.editResultModal('${r.id}','${r.resultType}',${r.resultType==='midterm'?`{ca1:${r.ca1Score},project:${r.projectScore},midExam:${r.midExamScore}}`:`{ca:${r.caScore},exam:${r.examScore}}`})">✏️ Edit</button> ${r.status==='approved'?`<button onclick="window.withdrawResult('${r.id}')">📤 Withdraw</button>`:''}</td></tr>`).join('')}</tbody></table>`; } };
+    window.deleteUserAccount = async (userId) => { if(confirm('Delete user? This also deletes associated teacher/student data.')){ const u=users.find(u=>u.id===userId); if(u&&u.role==='teacher'){ const t=teachers.find(t=>t.username===u.username); if(t) await deleteTeacher(t.id); } else if(u&&u.role==='student'){ const s=students.find(s=>s.username===u.username); if(s) await deleteStudent(s.id); } else { await deleteDoc(doc(db,"users",userId)); } showAdminSection('users'); alert('User deleted.'); } };
+    window.showChangePassword = () => { document.getElementById('adminContent').innerHTML=`<div class="card"><h3>🔐 Change Admin Password</h3><div id="pwdAlert"></div><div class="form-group"><label>Current Password</label><input type="password" id="currentPassword"></div><div class="form-group"><label>New Password</label><input type="password" id="newPassword"></div><div class="form-group"><label>Confirm</label><input type="password" id="confirmPassword"></div><button onclick="window.updateAdminPassword()">Update</button></div>`; };
+    window.updateAdminPassword = async () => { const old=document.getElementById('currentPassword')?.value.trim(), newp=document.getElementById('newPassword')?.value.trim(), conf=document.getElementById('confirmPassword')?.value.trim(); if(!currentUser||currentUser.role!=='admin'){ showAlert('pwdAlert','Not authorized','error'); return; } const admin=users.find(u=>u.id===currentUser.id); if(admin.password!==old){ showAlert('pwdAlert','Current password wrong','error'); return; } if(!newp||newp.length<4){ showAlert('pwdAlert','New password min 4 chars','error'); return; } if(newp!==conf){ showAlert('pwdAlert','Passwords mismatch','error'); return; } await updateDoc(doc(db,"users",currentUser.id),{password:newp}); showAlert('pwdAlert','Password changed! Login again.','success'); setTimeout(()=>logout(),1500); };
+    window.showUploadLogo = () => { document.getElementById('adminContent').innerHTML=`<div class="card"><h3>🏫 Upload School Logo</h3><div id="logoAlert"></div><div class="logo-upload-preview" id="logoPreview"><span>🏫</span></div><input type="file" id="logoFile" accept="image/*"><button onclick="window.uploadLogo()">Upload</button><button onclick="window.removeLogo()" style="background:#dc3545">Remove</button></div>`; const inp=document.getElementById('logoFile'); if(inp) inp.onchange=e=>{ const f=e.target.files[0]; if(f){ const r=new FileReader(); r.onload=ev=>{ const prev=document.getElementById('logoPreview'); if(prev) prev.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`; }; r.readAsDataURL(f); } }; };
+    window.uploadLogo = async () => { const f=document.getElementById('logoFile')?.files[0]; if(f){ const r=new FileReader(); r.onload=async e=>{ await updateDoc(doc(db,"portal","schoolData"),{schoolLogo:e.target.result}); showAlert('logoAlert','Logo uploaded!','success'); setTimeout(()=>showAdminSection('dashboard'),1000); }; r.readAsDataURL(f); } else alert('Select an image'); };
+    window.removeLogo = async () => { if(confirm('Remove logo?')){ await updateDoc(doc(db,"portal","schoolData"),{schoolLogo:null}); showAlert('logoAlert','Logo removed','success'); setTimeout(()=>showAdminSection('dashboard'),1000); } };
 
-    // Student Dashboard
+    // ========== STUDENT DASHBOARD (clean, scrollable tables) ==========
     function renderStudentDashboard() {
-        const student = students.find(s => s.username === currentUser?.username);
-        const activeSession = sessions.find(s => s.isActive) || { academicYear: 'N/A', term: 'No active session' };
-        if (student && student.canViewResults === false) {
-            document.getElementById('content').innerHTML = `
-                <div class="student-nav">
-                    <div class="nav-buttons"></div>
-                    <button class="logout-btn" onclick="window.logout()">🚪 Logout</button>
-                </div>
-                <div class="main-content">
-                    <div class="card"><h3>Access Restricted</h3><p>Please contact the school administration to resolve fee payment.</p></div>
-                </div>
-            `;
-            return;
-        }
-        const myMidterm = results.filter(r => r.studentId === student?.id && r.status === 'approved' && r.resultType === 'midterm');
-        const myFinal = results.filter(r => r.studentId === student?.id && r.status === 'approved' && r.resultType === 'final');
-        document.getElementById('content').innerHTML = `
-            <div class="student-nav">
-                <div class="nav-buttons"></div>
-                <button class="logout-btn" onclick="window.logout()">🚪 Logout</button>
-            </div>
-            <div class="main-content">
-                <div class="card"><h3>Welcome, ${student?.name}</h3><p><strong>📅 Active Session: ${activeSession.term} ${activeSession.academicYear}</strong></p></div>
-                <div class="card"><h3>📘 Mid Term Results (Total 40 marks)</h3>${myMidterm.length === 0 ? '<p>No approved Mid Term results yet.</p>' : `<div class="table-wrapper"></table><thead><tr><th>Subject</th><th>Class</th><th>CA1 (10)</th><th>Project (10)</th><th>Mid Exam (30)</th><th>Total</th><th>Grade</th></tr></thead><tbody>${myMidterm.map(r => `<tr><td>${r.subject}</td><td>${r.class}</td><td>${r.ca1Score}</td><td>${r.projectScore}</td><td>${r.midExamScore}</td><td><strong>${r.total}/40</strong></td><td class="status-approved">${r.grade}</tr>`).join('')}</tbody></table></div>`}</div>
-                <div class="card"><h3>📗 Final Exam Results (Total 100 marks)</h3>${myFinal.length === 0 ? '<p>No approved Final Exam results yet.</p>' : `<div class="table-wrapper"><table><thead><tr><th>Subject</th><th>Class</th><th>CA (40)</th><th>Exam (60)</th><th>Total</th><th>Grade</th></tr></thead><tbody>${myFinal.map(r => `<tr><td>${r.subject}</td><td>${r.class}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}/100</strong></td><td class="status-approved">${r.grade}</tr>`).join('')}</tbody></table></div>`}</div>
-            </div>
-        `;
+        const student = students.find(s=>s.username===currentUser?.username);
+        const active = sessions.find(s=>s.isActive)||{academicYear:'N/A',term:'No active session'};
+        if(student && student.canViewResults===false){ document.getElementById('content').innerHTML=`<div class="main-content"><div class="card"><h3>Access Restricted</h3><p>Please contact school administration.</p></div></div>`; return; }
+        const mid = results.filter(r=>r.studentId===student?.id && r.status==='approved' && r.resultType==='midterm');
+        const fin = results.filter(r=>r.studentId===student?.id && r.status==='approved' && r.resultType==='final');
+        document.getElementById('content').innerHTML = `<div class="main-content"><div class="card"><h3>Welcome, ${student?.name}</h3><p><strong>📅 Active Session: ${active.term} ${active.academicYear}</strong></p></div><div class="card"><h3>📘 Mid Term Results (Total 40)</h3>${mid.length===0?'<p>No approved Mid Term results.</p>':'<div class="table-wrapper"><table><thead><tr><th>Subject</th><th>Class</th><th>CA1 (10)</th><th>Project (10)</th><th>Mid Exam (30)</th><th>Total</th><th>Grade</th></tr></thead><tbody>'+mid.map(r=>`<tr><td>${r.subject}</td><td>${r.class}</td><td>${r.ca1Score}</td><td>${r.projectScore}</td><td>${r.midExamScore}</td><td><strong>${r.total}/40</strong></td><td class="status-approved">${r.grade}</td></tr>`).join('')+'</tbody></table></div>'}</div><div class="card"><h3>📗 Final Exam Results (Total 100)</h3>${fin.length===0?'<p>No approved Final Exam results.</p>':'<div class="table-wrapper"><table><thead><tr><th>Subject</th><th>Class</th><th>CA (40)</th><th>Exam (60)</th><th>Total</th><th>Grade</th></tr></thead><tbody>'+fin.map(r=>`<tr><td>${r.subject}</td><td>${r.class}</td><td>${r.caScore}</td><td>${r.examScore}</td><td><strong>${r.total}/100</strong></td><td class="status-approved">${r.grade}</td></tr>`).join('')+'</tbody></table></div>'}</div></div>`;
     }
 
-    // Start App
-    const savedUser = localStorage.getItem('portal_currentUser');
-    if (savedUser) {
-        currentUser = JSON.parse(savedUser);
-    }
+    // start
+    const saved = localStorage.getItem('portal_currentUser');
+    if(saved) currentUser = JSON.parse(saved);
     await loadInitialData();
-    if (currentUser && !users.find(u => u.id === currentUser.id)) {
-        currentUser = null;
-        localStorage.removeItem('portal_currentUser');
-    } else if (currentUser && currentUser.role === 'teacher') {
-        const teacherRecord = teachers.find(t => t.username === currentUser.username);
-        if (teacherRecord) currentUser.teacherId = teacherRecord.id;
-    }
-    rerenderCurrentView();
+    if(currentUser && !users.find(u=>u.id===currentUser.id)) { currentUser=null; localStorage.removeItem('portal_currentUser'); }
+    else if(currentUser?.role==='teacher') currentUser.teacherId = teachers.find(t=>t.username===currentUser.username)?.id;
+    rerender();
     updateHeaderLogo();
 </script>
 </body>
