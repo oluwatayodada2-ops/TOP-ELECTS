@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>TOP-ELECTS COLLEGE</title>
+    <title>TOP-ELECTS COLLEGE - Advanced Result Portal</title>
     <style>
         * {
             margin: 0;
@@ -450,7 +450,7 @@
 <div class="container" id="app">
     <div class="header">
         <div class="school-logo" id="schoolLogoContainer"><span class="default-logo">🏫</span></div>
-        <div class="header-text"><h1>TOP-ELECTS COLLEGE</h1></div>
+        <div class="header-text"><h1>TOP-ELECTS COLLEGE</h1><p>Advanced Result Portal</p></div>
         <button class="menu-toggle" onclick="toggleMobileMenu()">☰ Menu</button>
     </div>
     <div id="content"></div>
@@ -653,7 +653,17 @@
     function rerender() {
         if(!currentUser) renderLogin();
         else if(currentUser.role==='admin') renderAdminDashboard();
-        else if(currentUser.role==='teacher') renderTeacherDashboard();
+        else if(currentUser.role==='teacher') {
+            const cont = document.getElementById('teacherContent');
+            const section = cont?.getAttribute('data-section') || 'midterm';
+            // IMPORTANT: If a teacher is on the Mid Term or Final Exam upload form,
+            // do NOT rebuild the dashboard — remote changes must not wipe their input.
+            if (cont && (section === 'midterm' || section === 'final')) {
+                document.getElementById('logoutContainer').innerHTML = '<button onclick="window.logout()" class="logout-bottom">🚪 Logout</button>';
+                return;
+            }
+            renderTeacherDashboard(section);
+        }
         else if(currentUser.role==='student') renderStudentDashboard();
         const nav=document.querySelector('.nav'); if(nav) nav.classList.remove('collapsed');
         document.getElementById('logoutContainer').innerHTML = currentUser ? '<button onclick="window.logout()" class="logout-bottom">🚪 Logout</button>' : '';
@@ -797,7 +807,7 @@
     };
 
     // ========== TEACHER DASHBOARD ==========
-    function renderTeacherDashboard() {
+    function renderTeacherDashboard(section = 'midterm') {
         if(!currentUser.teacherId) currentUser.teacherId = teachers.find(t=>t.username===currentUser.username)?.id;
         document.getElementById('content').innerHTML = `
             <div class="nav">
@@ -807,7 +817,7 @@
                 <button onclick="window.showTeacherSection('analytics')">📈 Analytics</button>
             </div>
             <div class="main-content" id="teacherContent"></div>`;
-        showTeacherSection('midterm');
+        showTeacherSection(section);
     }
     window.editTeacherResult = function(id, type, scores) {
         let body='';
@@ -847,7 +857,7 @@
                 <div class="card">
                     <h3>📝 Mid Term Result — ${sess.term} ${sess.academicYear} (Total 40: CA1 10 + Project 10 + Mid Exam 20)</h3>
                     <div id="scoreAlert"></div>
-                    <div class="alert alert-info"><strong></strong></div>
+                    <div class="alert alert-info"><strong>ℹ️ Results are saved under the working session shown above. Once submitted, a result can only be edited (not re-uploaded).</strong></div>
                     <div class="grid-2">
                         <select id="midAssignmentSelect" onchange="window.loadStudentsForMidterm()">
                             <option value="">-- Subject & Class --</option>
@@ -872,7 +882,7 @@
                 <div class="card">
                     <h3>📝 Final Exam Result — ${sess.term} ${sess.academicYear} (Total 100)</h3>
                     <div id="finalAlert"></div>
-                    <div class="alert alert-info"><strong></strong></div>
+                    <div class="alert alert-info"><strong>ℹ️ Results are saved under the working session shown above. Once submitted, a result can only be edited (not re-uploaded).</strong></div>
                     <div class="grid-2">
                         <select id="finalAssignmentSelect" onchange="window.loadStudentsForFinal()">
                             <option value="">-- Subject & Class --</option>
@@ -2164,7 +2174,7 @@
                     ${logoHtml}
                     <div style="flex:1;">
                         <div style="font-size:20px;font-weight:bold;color:#1e3c72;">TOP-ELECTS COLLEGE</div>
-                        <div style="font-size:11px;color:#555;"> Result Sheet</div>
+                        <div style="font-size:11px;color:#555;">Advanced Result Portal &mdash; ${isMid ? 'Mid Term' : 'Final Exam'} Result Sheet</div>
                     </div>
                 </div>
                 <table style="width:100%;border-collapse:collapse;margin-top:12px;">
@@ -2179,7 +2189,7 @@
                 </table>
                 ${tableHtml}
                 <div style="margin-top:22px;border-top:1px solid #ccc;padding-top:8px;font-size:10px;color:#666;">
-                    Generated on ${new Date().toLocaleString()} &bull;
+                    Generated on ${new Date().toLocaleString()} &bull; This is a computer-generated result sheet.
                 </div>
             </div>`;
     }
