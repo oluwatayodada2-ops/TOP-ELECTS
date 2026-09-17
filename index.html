@@ -1426,6 +1426,58 @@
         }
 
         if(section==='teacherSubjects'){
+            // Group all assignments by teacher
+            const grouped = {};
+            teacherSubjects.forEach(ts => {
+                if (!grouped[ts.teacherId]) grouped[ts.teacherId] = [];
+                grouped[ts.teacherId].push(ts);
+            });
+            const teacherIds = Object.keys(grouped);
+
+            // Track which teacher groups are collapsed (default = open)
+            if (!window._closedTeacherGroups) window._closedTeacherGroups = new Set();
+
+            const groupsHtml = teacherIds.map(tid => {
+                const t = teachers.find(x => x.id === tid);
+                const list = grouped[tid];
+                const isOpen = !window._closedTeacherGroups.has(tid);
+                const rowsHtml = list.map(ts => {
+                    const s = schoolData.subjects.find(x => x.id === ts.subjectId);
+                    return `<tr>
+                        <td>${s?.name || 'Unknown'}</td>
+                        <td>${s?.code || '-'}</td>
+                        <td>${s?.category || '-'}</td>
+                        <td>${ts.class}</td>
+                        <td class="action-buttons">
+                            <button onclick="window.editTeacherSubject('${ts.id}')">✏️ Edit</button>
+                            <button onclick="window.removeTeacherSubject('${ts.id}')" style="background:#dc3545">🗑️ Remove</button>
+                        </td>
+                    </tr>`;
+                }).join('');
+                return `
+                <div style="background:white; border:1px solid #ddd; border-radius:8px; margin-bottom:10px; overflow:hidden;">
+                    <div onclick="window.toggleTeacherGroup('${tid}')" style="padding:12px 15px; background:#e8f0fe; cursor:pointer; display:flex; justify-content:space-between; align-items:center; user-select:none;">
+                        <div>
+                            <strong style="color:#1e3c72;">👨‍🏫 ${t?.name || 'Unknown Teacher'}</strong>
+                            <span style="color:#555; font-size:12px; margin-left:10px;">
+                                ${list.length} subject${list.length !== 1 ? 's' : ''} assigned
+                            </span>
+                        </div>
+                        <span style="font-size:14px; opacity:0.6;">${isOpen ? '▾' : '▸'}</span>
+                    </div>
+                    <div style="display:${isOpen ? 'block' : 'none'}; padding:10px 15px 15px;">
+                        <div class="table-wrapper" style="margin:0;">
+                            <table>
+                                <thead>
+                                    <tr><th>Subject</th><th>Code</th><th>Category</th><th>Class</th><th>Actions</th></tr>
+                                </thead>
+                                <tbody>${rowsHtml}</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+
             cont.innerHTML=`
                 <div class="card">
                     <h3>Assign Subject to Teacher</h3>
@@ -1437,24 +1489,10 @@
                     <button onclick="window.assignSubject()">Assign Subject</button>
                 </div>
                 <div class="card">
-                    <h3>Current Assignments (${teacherSubjects.length})</h3>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead><tr><th>Teacher</th><th>Subject</th><th>Class</th><th>Action</th></tr></thead>
-                            <tbody>
-                                ${teacherSubjects.map(ts=>{
-                                    const t=teachers.find(t=>t.id===ts.teacherId);
-                                    const s=schoolData.subjects.find(s=>s.id===ts.subjectId);
-                                    return `<tr>
-                                        <td>${t?.name||'Unknown'}</td>
-                                        <td>${s?.name||'Unknown'}</td>
-                                        <td>${ts.class}</td>
-                                        <td><button onclick="window.removeTeacherSubject('${ts.id}')">Remove</button></td>
-                                    </tr>`;
-                                }).join('')}
-                            </tbody>
-                        </table>
-                    </div>
+                    <h3>Teachers &amp; Their Assignments (${teacherIds.length} teacher${teacherIds.length !== 1 ? 's' : ''}, ${teacherSubjects.length} assignment${teacherSubjects.length !== 1 ? 's' : ''})</h3>
+                    ${teacherIds.length === 0
+                        ? '<p>No assignments yet. Use the form above to assign a subject to a teacher.</p>'
+                        : groupsHtml}
                 </div>`;
             makeCardsCollapsible(cont);
             return;
@@ -1841,6 +1879,65 @@
             const n=document.getElementById('editName').value.trim(), c=document.getElementById('editCode').value.trim(), cat=document.getElementById('editCat').value;
             if(n&&c){ await updateSubject(id,n,c,cat); showAdminSection('subjects'); alert('Subject updated!'); }
         });
+    };
+    // Edit an existing teacher↔subject↔class assignment
+    window.editTeacherSubject = function(id) {
+        const ts = teacherSubjects.find(t => t.id === id);
+        if (!ts) return;
+
+        const teacherOpts = teachers.map(t =>
+            `<option value="${t.id}" ${t.id===ts.teacherId?'selected':''}>${t.name}</option>`
+        ).join('');
+        const subjectOpts = schoolData.subjects.map(s =>
+            `<option value="${s.id}" ${s.id===ts.subjectId?'selected':''}>${s.name}</option>`
+        ).join('');
+        const classOpts = schoolData.classes.flatMap(c =>
+            c.arms.map(arm => {
+                const val = `${c.name} ${arm}`;
+                return `<option value="${val}" ${val===ts.class?'selected':''}>${val}</option>`;
+            })
+        ).join('');
+
+        window.showModal('Edit Assignment', `
+            <label>Teacher</label>
+            <select id="editAsTeacher">${teacherOpts}</select>
+            <label>Subject</label>
+            <select id="editAsSubject">${subjectOpts}</select>
+            <label>Class</label>
+            <select id="editAsClass">${classOpts}</select>
+        `, async () => {
+            const newTeacherId = document.getElementById('editAsTeacher').value;
+            const newSubjectId = document.getElementById('editAsSubject').value;
+            const newClass = document.getElementById('editAsClass').value;
+            if (!newTeacherId || !newSubjectId || !newClass) {
+                alert('All fields are required.');
+                return;
+            }
+            const dup = teacherSubjects.find(other =>
+                other.id !== id &&
+                other.teacherId === newTeacherId &&
+                other.subjectId === newSubjectId &&
+                other.class === newClass
+            );
+            if (dup) {
+                alert('This teacher already has that subject for that class.');
+                return;
+            }
+            await updateDoc(doc(db, "teacherSubjects", id), {
+                teacherId: newTeacherId,
+                subjectId: newSubjectId,
+                class: newClass
+            });
+            showAdminSection('teacherSubjects');
+            alert('Assignment updated!');
+        });
+    };
+    // Toggle an individual teacher's group open/closed on the Assign page
+    window.toggleTeacherGroup = function(tid) {
+        if (!window._closedTeacherGroups) window._closedTeacherGroups = new Set();
+        if (window._closedTeacherGroups.has(tid)) window._closedTeacherGroups.delete(tid);
+        else window._closedTeacherGroups.add(tid);
+        showAdminSection('teacherSubjects');
     };
     window.addTeacher = async () => {
         const n=document.getElementById('tName')?.value.trim(), u=document.getElementById('tUser')?.value.trim(), p=document.getElementById('tPass')?.value.trim();
